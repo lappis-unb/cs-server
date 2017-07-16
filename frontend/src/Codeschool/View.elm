@@ -49,7 +49,7 @@ view x m =
                     Page.Progress.view m
 
                 QuestionList ->
-                    Page.Questions.Base.viewList m
+                    Page.Questions.Base.viewList Page.Questions.Base.clsList
 
                 Question id ->
                     Page.Questions.Base.viewDetail m
