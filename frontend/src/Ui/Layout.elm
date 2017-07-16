@@ -27,7 +27,7 @@ page content model =
                 ]
 
         head_ =
-            div [ shadow 2 ]
+            div [ ]
                 [ header [] [ Ui.Header.header model ]
                 ]
 
@@ -47,7 +47,7 @@ page content model =
                 [ content ]
 
         foot_ =
-            div [ shadow 2 ]
+            div [ ]
                 [ footer [] [ Ui.Footer.footer model ]
                 ]
 

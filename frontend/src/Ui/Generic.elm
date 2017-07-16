@@ -66,31 +66,3 @@ zindex : Int -> Attr msg
 zindex n =
     style [ ( "z-index", toString n ) ]
 
-
-{-| Material design shadow
--}
-shadow : Int -> Attr msg
-shadow n =
-    let
-        prefix =
-            "shadow-"
-
-        cls x =
-            class <| prefix ++ toString n ++ "dp"
-    in
-    if n <= 2 then
-        cls 2
-    else if n <= 4 then
-        cls n
-    else if n == 5 then
-        cls 5
-    else if n <= 7 then
-        cls 6
-    else if n <= 11 then
-        cls 8
-    else if n <= 15 then
-        cls 12
-    else if n <= 23 then
-        cls 16
-    else
-        cls 24

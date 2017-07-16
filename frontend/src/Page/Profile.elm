@@ -21,6 +21,6 @@ view m =
         , container []
             [ h1 [] [ text "Personal info" ]
             , p [] [ text ("Name: " ++ profile.name) ]
-            , p [] [ text ("E-mao;: " ++ profile.email) ]
+            , p [] [ text ("E-mail: " ++ profile.email) ]
             ]
         ]
