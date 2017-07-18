@@ -10,6 +10,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    flex-grow: 2;
     justify-content: space-between;
     width: 30%;
     padding: 20px;
@@ -46,19 +47,17 @@
 .question-info-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: space-between;
 }
 
-
-@media only screen and (max-width: $breakpoint-medium-screen) {
+@media only screen and (max-width: $breakpoint-large-screen) {
   .question-info-list {
-    display: list-item;
+    display: flex;
   }
 
   .question-info-card {
       flex: 1;
-      min-width: 40%;
+      min-width: 15em;
   }
 
 }

@@ -2207,6 +2207,7 @@ code {
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-grow: 2;
   justify-content: space-between;
   width: 30%;
   padding: 20px; }
@@ -2229,16 +2230,15 @@ code {
 .question-info-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start; }
+  justify-content: space-between; }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 840px) {
   .question-info-list {
-    display: list-item; }
+    display: flex; }
 
   .question-info-card {
     flex: 1;
-    min-width: 40%; } }
+    min-width: 15em; } }
 @media print {
   *,
   *:before,

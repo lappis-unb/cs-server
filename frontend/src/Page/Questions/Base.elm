@@ -9,7 +9,7 @@ import Data.Question exposing (..)
 import Html.Attributes exposing (..)
 import Polymer.Paper as Paper exposing (button, fab)
 import Polymer.Attributes exposing (icon)
-import Ui.Generic exposing (date, emoticon)
+import Ui.Generic exposing (date, emoticon, container)
 
 -- import Html.Events exposing (..)
 
@@ -38,7 +38,7 @@ viewList m =
             ]
 
         fab_ =
-            fab [ icon "add", class "content-fab", alt "Find a new classroom" ] []
+            div [] []
 
         children =
             case m of
@@ -49,9 +49,9 @@ viewList m =
                     fab_ :: listing
 
     in
-        div []
+      div []
         [ simpleHero "List of Questions" "See all questions available for you"
-        , div [ class "container" ] children
+        , div []  children
         ]
 
 
