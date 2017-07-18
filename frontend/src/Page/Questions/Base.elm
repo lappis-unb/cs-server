@@ -57,43 +57,35 @@ viewList m =
 
 questionInfo : QuestionInfo -> Html msg
 questionInfo cls =
-    div [ class "classroom-info-card" ]
-        [ h1 [ class "classroom-info-card__title" ]
+    div [ class "question-info-card" ]
+        [ Ui.Generic.icon [class "question-info-card__icon"] cls.icon
+        , h1 [ class "question-info-card__title" ]
             [ text cls.questionName
             ]
-        , p [ class "classroom-info-card__teacher" ]
-            [ strong [] [ text "Subject: " ]
-            , text cls.subject
-            ]
-        , p [ class "classroom-info-card__description" ]
+        , p [ class "question-info-card__description" ]
             [ text cls.shortDescription
-            ]
-        , div [ class "classroom-info-card__toolbar" ]
-            [ Paper.button
-                [ attribute "raised" "raised" ]
-                [ text "Go" ]
             ]
         ]
 
 questionOne : QuestionInfo
 questionOne =
     { questionName = "VEMMM MALUCOOOOO"
-    , subject = "AAAAAAAAAAAAAAAAAA"
     , shortDescription = "DESCREVE INSANOOOOOOOOOOOOOO."
+    , icon = "code"
     }
 
 questionTwo : QuestionInfo
 questionTwo =
     { questionName = "nome da questão pois é"
-    , subject = "qualquer coisa aqui..."
     , shortDescription = "descrevendo wow..."
+    , icon = "sentiment_very_satisfied"
     }
 
 questionThree : QuestionInfo
 questionThree =
     { questionName = "Sequência de Fibonacci"
-    , subject = "Algoritmos"
     , shortDescription = "Questão para testar seus conhecimentos sobre como funciona o algoritmo de fibonacci"
+    , icon = "all_out"
     }
 
 clsList : List QuestionInfo

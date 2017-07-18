@@ -7,6 +7,6 @@ module Data.Question exposing (..)
 -}
 type alias QuestionInfo =
     { questionName : String
-    , subject : String
     , shortDescription : String
+    , icon : String
     }

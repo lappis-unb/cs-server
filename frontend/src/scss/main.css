@@ -2197,6 +2197,35 @@ code {
   .classroom-info-card {
     flex: 1;
     min-width: 40%; } }
+.question-info-card {
+  padding: 0;
+  background: #fafafa;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  margin: 25px 15px;
+  align-self: stretch;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 35%;
+  padding: 20px; }
+  .question-info-card__title {
+    position: relative;
+    align-self: center;
+    color: black;
+    font-family: 'Amatic SC';
+    padding-bottom: 10px; }
+  .question-info-card__description {
+    text-align: center;
+    word-wrap: break-word;
+    width: 95%; }
+  .question-info-card__icon {
+    align-self: center;
+    font-size: 100px; }
+  .question-info-card:hover {
+    cursor: pointer; }
+
 @media print {
   *,
   *:before,
@@ -2268,11 +2297,11 @@ code {
   margin: 0 auto;
   padding: 20px; }
 
-.paper, .sidebar, header, .page-header__user-menu paper-listbox, .promo-simple:hover, .classroom-info-card:hover, .classroom-lesson:hover {
+.paper, .sidebar, header, .page-header__user-menu paper-listbox, .promo-simple:hover, .classroom-info-card:hover, .classroom-lesson:hover, .question-info-card:hover {
   box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
   z-index: 2; }
 
-.paper-flat, .classroom-info-card, .classroom-lesson {
+.paper-flat, .classroom-info-card, .classroom-lesson, .question-info-card {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.18), 0 3px 1px -2px rgba(0, 0, 0, 0.15);
   z-index: 1; }
 
