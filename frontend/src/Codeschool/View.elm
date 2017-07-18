@@ -19,51 +19,52 @@ import Page.Submission
 import Ui.Layout
 
 
+getRouteView : Model -> Html Msg
+getRouteView model =
+    case model.route of
+        ClassroomList ->
+            Page.Classroom.classroomList Page.Classroom.clsList
+
+        Classroom id ->
+            Page.Classroom.classroomList Page.Classroom.clsList
+
+        Help ->
+            Page.Help.view model
+
+        Index ->
+            Page.Index.view model
+
+        Learn ->
+            Page.Learn.view model
+
+        Logout ->
+            Page.Index.view model
+
+        Profile id ->
+            Page.Profile.view model
+
+        Progress ->
+            Page.Progress.view model
+
+        QuestionList ->
+            Page.Questions.Base.viewList Page.Questions.Base.clsList
+
+        Question id ->
+            Page.Questions.Base.viewDetail model
+
+        ScoreBoard ->
+            Page.ScoreBoard.view model
+
+        Social ->
+            Page.Social.view model
+
+        SubmissionList ->
+            Page.Submission.view model
+
+        NotFound ->
+            Page.NotFound.view model
+
+
 view : Html Msg -> Model -> Html Msg
-view x m =
-    let
-        data =
-            case m.route of
-                ClassroomList ->
-                    Page.Classroom.classroomList Page.Classroom.clsList
-
-                Classroom id ->
-                    Page.Classroom.classroomList Page.Classroom.clsList
-
-                Help ->
-                    Page.Help.view m
-
-                Index ->
-                    Page.Index.view m
-
-                Learn ->
-                    Page.Learn.view m
-
-                Logout ->
-                    Page.Index.view m
-
-                Profile id ->
-                    Page.Profile.view m
-
-                Progress ->
-                    Page.Progress.view m
-
-                QuestionList ->
-                    Page.Questions.Base.viewList Page.Questions.Base.clsList
-
-                Question id ->
-                    Page.Questions.Base.viewDetail m
-
-                ScoreBoard ->
-                    Page.ScoreBoard.view m
-
-                Social ->
-                    Page.Social.view m
-
-                SubmissionList ->
-                    Page.Submission.view m
-
-                NotFound ->
-                    Page.NotFound.view m
-    in
-    Ui.Layout.page data m
+view msg model =
+    Ui.Layout.page (getRouteView model) model
