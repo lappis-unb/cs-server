@@ -34,7 +34,7 @@ viewList m =
             ]
 
         listing =
-            [ div [ class "classroom-info-list" ] (List.map questionInfo m)
+            [ div [ class "question-info-list" ] (List.map questionInfo m)
             ]
 
         fab_ =
@@ -77,7 +77,7 @@ questionOne =
 questionTwo : QuestionInfo
 questionTwo =
     { questionName = "nome da questão pois é"
-    , shortDescription = "descrevendo wow..."
+    , shortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris varius tellus velit, ut accumsan odio tincidunt in."
     , icon = "sentiment_very_satisfied"
     }
 
@@ -88,6 +88,13 @@ questionThree =
     , icon = "all_out"
     }
 
+questionFour : QuestionInfo
+questionFour =
+    { questionName = "Sequência de Fibonacci"
+    , shortDescription = "Questão para testar seus conhecimentos sobre como funciona o algoritmo de fibonacci"
+    , icon = "all_out"
+    }
+
 clsList : List QuestionInfo
 clsList =
-    [ questionOne, questionTwo, questionThree ]
+    [ questionOne, questionTwo, questionThree, questionFour ]

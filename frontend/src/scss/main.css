@@ -2208,12 +2208,12 @@ code {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 35%;
+  width: 30%;
   padding: 20px; }
   .question-info-card__title {
     position: relative;
     align-self: center;
-    color: black;
+    color: #007474;
     font-family: 'Amatic SC';
     padding-bottom: 10px; }
   .question-info-card__description {
@@ -2226,6 +2226,19 @@ code {
   .question-info-card:hover {
     cursor: pointer; }
 
+.question-info-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start; }
+
+@media only screen and (max-width: 480px) {
+  .question-info-list {
+    display: list-item; }
+
+  .question-info-card {
+    flex: 1;
+    min-width: 40%; } }
 @media print {
   *,
   *:before,
@@ -2293,7 +2306,7 @@ code {
   color: #4d8bc0; }
 
 .container {
-  width: calc(70% + 200px);
+  width: calc(70% + 20em);
   margin: 0 auto;
   padding: 20px; }
 
