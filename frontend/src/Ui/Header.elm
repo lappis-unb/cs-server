@@ -58,7 +58,7 @@ header model =
                 [ class "page-header"
                 , zindex 10
                 ]
-                [ span [ class "page-logo title", slot "top" ]
+                [ span [ class "page-logo", slot "top" ]
                     [ img
                         [ src "https://codeschool.lappis.rocks/static/img/logo.svg"
                         , onClick (ChangeRoute Index)
@@ -68,8 +68,11 @@ header model =
                 , link ClassroomList "Classrooms"
                 , link QuestionList "Questions"
                 , link Social "Social"
-                , icon [ class "page-header__notification" ] "notifications"
-                , userMenu
+                , div [class "page-header__special-buttons"]
+                  [
+                  icon [ class "page-header__notification" ] "notifications"
+                  , userMenu
+                  ]
                 ]
     in
     div [] [ header ]
