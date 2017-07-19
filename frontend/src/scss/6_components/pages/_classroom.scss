@@ -16,7 +16,7 @@
     width: 350px;
 
     &__image {
-        background-color: #007474;
+        background-image: url('/background_card.jpg');
         background-size: cover;
         position: relative;
         margin-bottom: 10px;
@@ -106,7 +106,7 @@
 }
 
 
-@media only screen and (min-width: $breakpoint-medium-screen) {
+@media only screen and (min-width: $breakpoint-large-screen) {
     .classroom-info-list {
         display: flex;
         flex-wrap: wrap;

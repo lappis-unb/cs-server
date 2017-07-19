@@ -35,7 +35,7 @@ classroomList lst =
             ]
 
         fab_ =
-            fab [ icon "add", class "content-fab", alt "Find a new classroom" ] []
+            div [] []
 
         children =
             case lst of
