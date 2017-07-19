@@ -22,7 +22,7 @@ submissions =
 view : Model -> Html msg
 view m =
     div []
-        [ simpleHero "List of submissions" "Check your last submissions."
+        [ simpleHero "List of submissions" "Check your last submissions." "simple-hero"
         , container []
             [ table []
                 [ thead []

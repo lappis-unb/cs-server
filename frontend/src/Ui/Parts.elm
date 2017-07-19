@@ -21,10 +21,10 @@ import Ui.Generic exposing (container, icon)
 
 {-| A simple hero element with a title and a short description
 -}
-simpleHero : String -> String -> Html msg
-simpleHero title description =
+simpleHero : String -> String -> String -> Html msg
+simpleHero title description topClass =
     div
-        [ class "simple-hero" ]
+        [ class topClass ]
         [ container []
             [ h1 [ class "simple-hero__title" ] [ text title ]
             , p [ class "simple-hero__description" ] [ text description ]

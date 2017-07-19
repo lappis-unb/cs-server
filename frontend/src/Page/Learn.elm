@@ -12,6 +12,7 @@ view m =
         [ simpleHero
             "Learning resources"
             "This page presents all learning resources that are available to any user."
+            "simple-hero"
         , container []
             [ promoTable
                 ( promoSimple "school"
@@ -19,9 +20,9 @@ view m =
                     []
                     [ text
                         """
-                        A few programming tutorials. Even if you are in an 
-                        advanced course, the content here can be useful if you 
-                        are feeling rusty... 
+                        A few programming tutorials. Even if you are in an
+                        advanced course, the content here can be useful if you
+                        are feeling rusty...
                         """
                     ]
                 , promoSimple "code"
@@ -29,7 +30,7 @@ view m =
                     []
                     [ text
                         """
-                        A list of questions that you can use to practice and 
+                        A list of questions that you can use to practice and
                         challenge your friends. Who can write the better code?
                         """
                     ]
