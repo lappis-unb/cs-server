@@ -7,7 +7,7 @@ from django.db import transaction
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, ugettext as __
 from lazyutils import delegate_to, lazy
-
+from django.core.validators import MinValueValidator
 from codeschool import models
 
 strptime = datetime.datetime.strptime
@@ -47,7 +47,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         (ROLE_STUDENT, _('Student')),
         (ROLE_TEACHER, _('Teacher')),
         (ROLE_STAFF, _('School staff')),
-        (ROLE_ADMIN, _('Administrator'))]
+        (ROLE_ADMIN, _('Administrator')),
+    ]
 
     email = models.EmailField(
         _('E-mail'),
@@ -261,3 +262,27 @@ class Profile(models.TimeStampedModel):
 
     def get_absolute_url(self):
         self.user.get_absolute_url()
+
+
+class Password(models.Model):
+
+    data = models.CharField(
+        primary_key=True,
+        unique=True,
+        max_length=256,
+
+    )
+
+    occurrences = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0)],
+
+    )
+
+def register_password(password):
+    try:
+        password = Password.objects.get(data=password)
+        password.occurrences += 1
+    except Password.DoesNotExist:
+        password = Password(data=password, occurrences=1)
+    password.save()
