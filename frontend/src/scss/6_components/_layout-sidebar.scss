@@ -3,7 +3,7 @@ $barcolor: #aaa;
 
 .sidebar {
   @extend .paper;
-  
+
   width: 40px;
   position: fixed;
   height: 100vh;
@@ -61,4 +61,10 @@ $barcolor: #aaa;
           opacity: 1;
       }
 }
-        
+
+
+@media (max-width: $breakpoint-large-screen) {
+  .sidebar {
+     display: none;
+  }
+}

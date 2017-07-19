@@ -56,7 +56,7 @@ page content model =
     in
     div []
         [ map <| div [] [ sidebar model ]
-        , div [ class "content", contentStyle ]
+        , div [class "main-content"]
             [ map head_
             , content_
             , map foot_
