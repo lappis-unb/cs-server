@@ -110,47 +110,54 @@ header {
     }
 }
 
+.mobile-button{
+  display: none;
+}
+
 @media (max-width: $breakpoint-large-screen) {
   .page-header {
-    align-items: center;
     height: auto;
     width: auto;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    flex-direction: column;
-
-
-    &__link:first-of-type {
-      margin-top: 10px;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 
     &__link {
-      width: auto;
-      height: auto;
-      padding: 0 0;
-      margin: 0 0;
+      display: none;
     }
-
-    &__user-menu-button {
-      margin: 0 0 0 0;
-    }
-
 
   }
 
   .page-logo {
-      margin: 0;
+      margin: auto auto 10px 10px;
+      width: 40%;
+      height: auto;
   }
 
-  .page-header__notification {
-      margin: auto 0;
+  .page-header__user-menu-button{
+      display: none;
   }
 
-  .page-header__special-buttons {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-      width: 100%;
-  }
+  .mobile-button{
+    display: flex;
+    background-color: $color-red !important;
+    margin-bottom: 5px;
+
+    &__fonts {
+      font-family: "Amatic SC";
+      font-size: 1.6em;
+    }
+
+    &__fonts-title {
+      font-family: "Amatic SC";
+      font-weight: bold;
+      margin-left: 20px;
+    }
+}
+
+.page-header__notification {
+    margin: auto;
+
+}
 
 }

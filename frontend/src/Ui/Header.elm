@@ -42,7 +42,7 @@ header model =
                     [ slot "dropdown-trigger"
                     , class "page-header__user-menu-button"
                     , attribute "mini" "mini"
-                    , attribute "icon" "person"
+                    , attribute "label" " ツ "
                     ]
                     []
                 , listbox [ slot "dropdown-content", class "page-header__user-menu-content" ]
@@ -50,6 +50,30 @@ header model =
                     , div [ class "page-header__user-menu-title" ] [ h1 [] [ text "Actions" ] ]
                     , item [ onClick (ChangeRoute (Profile model.user.id)) ] [ text "Profile" ]
                     , item [ href "/logout/" ] [ text "Logout" ]
+                    ]
+                ]
+
+        mobileMenu =
+            menuButton
+                [ class "page-header__user-menu"
+                , attribute "horizontal-align" "right"
+                , attribute "horizontal-offset" "-0"
+                , attribute "vertical-offset" "80"
+                ]
+                [ fab
+                    [ slot "dropdown-trigger"
+                    , class "mobile-button"
+                    , attribute "mini" "mini"
+                    , attribute "label" " ツ "
+                    ]
+                    []
+                , listbox [ slot "dropdown-content", class "page-header__user-menu-content" ]
+                    [ div [] [ h1 [class "mobile-button__fonts-title"] [ text "Actions" ] ]
+                    , item [ onClick (ChangeRoute (ClassroomList)) ] [ h1 [class "mobile-button__fonts"] [text "Classrooms"] ]
+                    , item [ onClick (ChangeRoute (QuestionList)) ] [ h1 [class "mobile-button__fonts"] [text "Questions"] ]
+                    , item [ onClick (ChangeRoute (Social)) ] [ h1 [class "mobile-button__fonts"] [text "Social"] ]
+                    , item [ onClick (ChangeRoute (Profile model.user.id)) ] [ h1 [class "mobile-button__fonts"] [text "Profile"] ]
+                    , item [ href "/logout/" ] [ h1 [class "mobile-button__fonts"] [text "Logout"] ]
                     ]
                 ]
 
@@ -72,6 +96,7 @@ header model =
                   [
                   icon [ class "page-header__notification" ] "notifications"
                   , userMenu
+                  , mobileMenu
                   ]
                 ]
     in
