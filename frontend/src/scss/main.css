@@ -2152,26 +2152,42 @@ code {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; }
-  .classroom-info-card > * {
-    padding: 20px; }
-  .classroom-info-card h1 {
+  justify-content: flex-start;
+  height: 400px;
+  width: 350px; }
+  .classroom-info-card__image {
+    background-color: #007474;
+    background-size: cover;
+    position: relative;
+    margin-bottom: 10px;
+    height: 250px;
+    width: 100%; }
+  .classroom-info-card__teacher, .classroom-info-card__toolbar, .classroom-info-card__description, .classroom-info-card__title {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 7px; }
+  .classroom-info-card__title {
     font-size: 1.2em;
     font-family: Roboto;
     font-weight: 500;
-    margin-bottom: 1em;
-    background: #00a7a7;
-    color: white; }
+    white-space: nowrap;
+    line-height: 14px;
+    text-overflow: ellipsis;
+    width: 90%;
+    overflow: hidden; }
+  .classroom-info-card h2 {
+    font-size: 1.0em;
+    text-align: start; }
+  .classroom-info-card p {
+    text-align: start; }
   .classroom-info-card__teacher {
-    position: absolute;
-    top: 45px;
-    right: -5px; }
+    text-align: start; }
   .classroom-info-card__toolbar {
-    border-top: 1px solid #ccc;
     padding: 10px;
-    text-align: right;
-    background: #eee;
-    width: 100%; }
+    text-align: right; }
+  .classroom-info-card__description {
+    height: 100px;
+    overflow: hidden; }
 
 .long-description {
   margin-top: 1em;
