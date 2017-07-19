@@ -43,9 +43,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['alias', 'name', 'school_id', 'role']
     USERNAME_FIELD = 'email'
     ROLE_STUDENT, ROLE_TEACHER, ROLE_STAFF, ROLE_ADMIN = range(4)
-    ROLE_CHOICES = enumerate([
-        _('Student'), _('Teacher'), _('School staff'), _('Administrator')]
-    )
+    ROLE_CHOICES = [
+        (ROLE_STUDENT, _('Student')),
+        (ROLE_TEACHER, _('Teacher')),
+        (ROLE_STAFF, _('School staff')),
+        (ROLE_ADMIN, _('Administrator'))]
 
     email = models.EmailField(
         _('E-mail'),

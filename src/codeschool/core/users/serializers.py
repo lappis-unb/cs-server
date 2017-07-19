@@ -8,9 +8,21 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     Serialize User objects.
     """
 
+    role = serializers.SerializerMethodField()
+
     class Meta:
         model = models.User
-        fields = ('url', 'alias', 'name', 'role')
+        fields = ('url', 'alias', 'role')
+
+    def get_role(self, obj):
+        if(obj.role == models.User.ROLE_STUDENT):
+            return 'student'
+        elif(obj.role == models.User.ROLE_TEACHER):
+            return 'teacher'
+        elif(obj.role == models.User.ROLE_STAFF):
+            return 'staff'
+        elif(obj.role == models.User.ROLE_ADMIN):
+            return 'admin'
 
 
 class FullUserSerializer(serializers.ModelSerializer):
