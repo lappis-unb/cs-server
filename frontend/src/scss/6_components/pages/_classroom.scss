@@ -11,33 +11,60 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    height: 400px;
+    width: 350px;
 
-    > * {
-        padding: 20px;
+    &__image {
+        background-color: #007474;
+        background-size: cover;
+        position: relative;
+        margin-bottom: 10px;
+        height: 250px;
+        width: 100%;
+    }
+
+    &__teacher, &__toolbar, &__description, &__title {
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 7px;
     }
     
-    h1 {
+    &__title {
         font-size: 1.2em;
         font-family: Roboto;
         font-weight: 500;
-        margin-bottom: 1em;
-        background: $color-teal;
-        color: white;
+        white-space: nowrap;
+        line-height: 14px;
+        text-overflow: ellipsis;
+        width: 90%;
+        overflow: hidden;
+    }
+
+    h2 {
+        font-size: 1.0em;
+        text-align: start;
+    }
+
+
+    p {
+        text-align: start;
     }
 
     &__teacher {
-        position: absolute;
-        top: 45px;
-        right: -5px;
+        text-align: start;
     }
 
     &__toolbar {
-        border-top: 1px solid #ccc;
+        //border-top: 1px solid #ccc;
         padding: 10px;
         text-align: right;
-        background: #eee;
-        width: 100%;
+        //background: #eee;
+    }
+
+    &__description {
+        height: 100px;
+        overflow: hidden;
     }
 }
 

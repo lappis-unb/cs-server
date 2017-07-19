@@ -54,10 +54,11 @@ classroomList lst =
 classroomInfo : ClassroomInfo -> Html msg
 classroomInfo cls =
     div [ class "classroom-info-card" ]
-        [ h1 [ class "classroom-info-card__title" ]
+        [ div [ class "classroom-info-card__image" ] []
+        , div [ class "classroom-info-card__title" ]
             [ text cls.name
             ]
-        , p [ class "classroom-info-card__teacher" ]
+        , h2 [ class "classroom-info-card__teacher" ]
             [ strong [] [ text "Teacher: " ]
             , text cls.teacher
             ]
@@ -160,7 +161,7 @@ testClassroom =
 
 numeric : ClassroomInfo
 numeric =
-    { name = "Numeric Calculus", teacher = "Fábio Mendes", shortDescription = "Blaha sals basa" }
+    { name = "Numeric Calculus Numeric Calculus Numeric Calculus Numeric Calculus", teacher = "Fábio Mendes", shortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin iaculis porta bibendum. Duis bibendum vel neque dictum suscipit. Nullam auctor leo porta, posuere nisl rutrum, ultrices erat. Mauris bibendum metus quis sapien hendrerit condimentum. Sed nec risus felis. Proin dignissim eleifend mattis. Aenean eget ligula tortor. Cras non aliquet risus." }
 
 
 clsList : List ClassroomInfo
