@@ -5,7 +5,7 @@ module Codeschool.Msg exposing (..)
 
 import Codeschool.Model exposing (Model, Route)
 import Codeschool.Routing exposing (parseLocation, reverse)
-import Navigation exposing (Location, newUrl)
+import Navigation exposing (Location, newUrl, back)
 
 
 {-| Message type
@@ -15,6 +15,8 @@ type Msg
     | ChangeRoute Route
     | RequireAsset String
     | AssetLoaded String
+    | GoBack Int
+
 
 
 {-| Update function
@@ -27,7 +29,7 @@ update msg model =
 
         ChangeLocation loc ->
             { model | route = parseLocation loc } ! []
-        
+
         RequireAsset asset ->
             if List.any ((==) asset) model.loadedAssets then
                 model ! []
@@ -37,6 +39,9 @@ update msg model =
 
         AssetLoaded asset ->
             { model | loadedAssets = withElement asset model.loadedAssets } ! []
+
+        GoBack int->
+         (model, back int)
 
 
 {-| Return a new list that surely include the given element

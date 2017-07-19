@@ -18,7 +18,7 @@ type alias Model =
     , route : Route
     , classroomInfoList : List ClassroomInfo
     , classroom : Maybe Classroom
-    , loadedAssets : List String 
+    , loadedAssets : List String
     }
 
 
@@ -29,7 +29,7 @@ init =
     { user = testUser
     , route = Index
     , classroomInfoList = []
-    , classroom = Nothing 
+    , classroom = Nothing
     , loadedAssets = []
     }
 
@@ -63,3 +63,4 @@ type Route
     | Social
     | Profile Id
     | Logout
+    | Actions

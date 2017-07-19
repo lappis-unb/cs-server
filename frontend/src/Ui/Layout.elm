@@ -6,7 +6,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Ui.Footer
-import Ui.Generic exposing (..)
+-- import Ui.Generic exposing (..)
 import Ui.Header
 import Ui.Sidebar exposing (sidebar)
 
@@ -55,7 +55,7 @@ page content model =
             a
     in
     div []
-        [ map <| div [] [ sidebar model ]
+        [ map <| div [] [ sidebar "sidebar" model ]
         , div [class "main-content"]
             [ map head_
             , content_

@@ -1846,7 +1846,32 @@ h6 {
 
 @media (max-width: 840px) {
   .sidebar {
-    display: none; } }
+    display: none; }
+    .sidebar__text {
+      opacity: 1;
+      position: relative;
+      left: auto;
+      margin-top: 0px;
+      color: black;
+      height: 60px;
+      font-family: "Roboto";
+      font-size: 1em; }
+    .sidebar__icon {
+      display: none; }
+    .sidebar__item {
+      margin: 11px; }
+    .sidebar__item:hover {
+      background: transparent;
+      height: auto;
+      cursor: pointer; }
+    .sidebar__item:active {
+      color: black;
+      animation: linkdarken;
+      animation-fill-mode: forwards; }
+
+  .mobile-sidebar {
+    display: flex;
+    flex-direction: column; } }
 header {
   position: relative;
   z-index: 10; }
@@ -1868,6 +1893,8 @@ header {
   box-shadow: .page-header __notification, .page-header __link;
     box-shadow-color: #444;
     box-shadow-margin: 0; }
+  .page-header__user-menu-content__sidebar {
+    display: none; }
   .page-header__link {
     text-decoration: none;
     font: 1.9em 'Amatic SC', cursive;
@@ -1916,6 +1943,20 @@ header {
 
 .mobile-button {
   display: none; }
+  .mobile-button__fonts {
+    font-family: "Roboto";
+    font-size: 1em; }
+  .mobile-button__item:Hover {
+    cursor: pointer; }
+  .mobile-button__fonts-title {
+    font-family: "Amatic SC";
+    font-weight: bold;
+    margin-left: 20px; }
+
+.action-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around; }
 
 @media (max-width: 840px) {
   .page-header {
@@ -1926,6 +1967,17 @@ header {
     justify-content: flex-end; }
     .page-header__link {
       display: none; }
+    .page-header__user-menu paper-listbox {
+      min-width: 250px; }
+    .page-header__user-menu-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-wrap: nowrap;
+      height: 70vh; }
+      .page-header__user-menu-content__sidebar {
+        display: inherit;
+        flex-direction: column; }
 
   .page-logo {
     margin: auto auto 10px 10px;
@@ -1935,20 +1987,22 @@ header {
   .page-header__user-menu-button {
     display: none; }
 
+  .page-header__notification {
+    margin: auto; }
+
   .mobile-button {
     display: flex;
     background-color: #cd3238 !important;
     margin-bottom: 5px; }
     .mobile-button__fonts {
-      font-family: "Amatic SC";
-      font-size: 1.6em; }
+      font-family: "Roboto";
+      font-size: 1em; }
+    .mobile-button__item:Hover {
+      cursor: pointer; }
     .mobile-button__fonts-title {
       font-family: "Amatic SC";
       font-weight: bold;
-      margin-left: 20px; }
-
-  .page-header__notification {
-    margin: auto; } }
+      margin-left: 20px; } }
 footer {
   position: relative;
   box-shadow: 0 -4px 5px 0 rgba(0, 0, 0, 0.14), 0 -1px 10px 0 rgba(0, 0, 0, 0.12), 0 -2px 4px -1px rgba(0, 0, 0, 0.4);

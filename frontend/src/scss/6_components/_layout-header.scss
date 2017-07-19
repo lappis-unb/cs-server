@@ -30,6 +30,10 @@ header {
 
     }
 
+    &__user-menu-content__sidebar {
+      display: none;
+    }
+
     &__link {
         text-decoration: none;
         font: 1.9em 'Amatic SC', cursive;
@@ -112,7 +116,31 @@ header {
 
 .mobile-button{
   display: none;
+
+  &__fonts {
+    font-family: "Roboto";
+    font-size: 1em;
+  }
+
+  &__item:Hover {
+    cursor: pointer;
+  }
+
+  &__fonts-title {
+    font-family: "Amatic SC";
+    font-weight: bold;
+    margin-left: 20px;
+  }
+
 }
+
+  .action-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+
 
 @media (max-width: $breakpoint-large-screen) {
   .page-header {
@@ -126,6 +154,27 @@ header {
       display: none;
     }
 
+
+    &__user-menu {
+        paper-listbox {
+            min-width: 250px;
+        }
+    }
+
+    &__user-menu-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        height: 70vh;
+
+        &__sidebar {
+          display: inherit;
+          flex-direction: column;
+        }
+    }
+
+
   }
 
   .page-logo {
@@ -138,14 +187,22 @@ header {
       display: none;
   }
 
+  .page-header__notification {
+    margin: auto;
+  }
+
   .mobile-button{
     display: flex;
     background-color: $color-red !important;
     margin-bottom: 5px;
 
     &__fonts {
-      font-family: "Amatic SC";
-      font-size: 1.6em;
+      font-family: "Roboto";
+      font-size: 1em;
+    }
+
+    &__item:Hover {
+      cursor: pointer;
     }
 
     &__fonts-title {
@@ -153,11 +210,6 @@ header {
       font-weight: bold;
       margin-left: 20px;
     }
-}
-
-.page-header__notification {
-    margin: auto;
-
 }
 
 }

@@ -65,6 +65,43 @@ $barcolor: #aaa;
 
 @media (max-width: $breakpoint-large-screen) {
   .sidebar {
-     display: none;
+    display: none;
+
+    &__text {
+      opacity: 1;
+      position: relative;
+      left: auto;
+      margin-top: 0px;
+      color: black;
+      height: 60px;
+      font-family: "Roboto";
+      font-size: 1em;
+    }
+
+    &__icon {
+      display: none;
+    }
+
+    &__item {
+        margin: 11px;
+    }
+
+    &__item:hover {
+        background: transparent;
+        height: auto;
+        cursor: pointer;
+      }
+
+    &__item:active {
+      color: black;
+      animation: linkdarken;
+      animation-fill-mode: forwards;
+    }
+
   }
+  .mobile-sidebar {
+     display: flex;
+     flex-direction: column;
+  }
+
 }

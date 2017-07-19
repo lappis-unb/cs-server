@@ -53,6 +53,13 @@ header model =
                     ]
                 ]
 
+        fabOnClick =
+          if model.route == Actions then
+            onClick (GoBack 1)
+          else
+            onClick (ChangeRoute Actions)
+
+
         mobileMenu =
             menuButton
                 [ class "page-header__user-menu"
@@ -65,16 +72,9 @@ header model =
                     , class "mobile-button"
                     , attribute "mini" "mini"
                     , attribute "label" " ツ "
+                    , fabOnClick
                     ]
                     []
-                , listbox [ slot "dropdown-content", class "page-header__user-menu-content" ]
-                    [ div [] [ h1 [class "mobile-button__fonts-title"] [ text "Actions" ] ]
-                    , item [ onClick (ChangeRoute (ClassroomList)) ] [ h1 [class "mobile-button__fonts"] [text "Classrooms"] ]
-                    , item [ onClick (ChangeRoute (QuestionList)) ] [ h1 [class "mobile-button__fonts"] [text "Questions"] ]
-                    , item [ onClick (ChangeRoute (Social)) ] [ h1 [class "mobile-button__fonts"] [text "Social"] ]
-                    , item [ onClick (ChangeRoute (Profile model.user.id)) ] [ h1 [class "mobile-button__fonts"] [text "Profile"] ]
-                    , item [ href "/logout/" ] [ h1 [class "mobile-button__fonts"] [text "Logout"] ]
-                    ]
                 ]
 
         header =

@@ -13,16 +13,23 @@ import Ui.Generic exposing (..)
 -}
 footer : Model -> Html msg
 footer model =
+  let
+      fab_ =
+        if model.route == Actions then
+          div [] []
+        else
+          div [ class "page-footer__copyright" ]
+              [ p []
+                  [ text "Copyright 2016 -"
+                  , a
+                      [ href "http://github.com/fabiommendes/codeschool" ]
+                      [ text "Codeschool" ]
+                  ]
+              , p []
+                  [ text "Site gerenciado por Fábio M. Mendes na UnB/Gama." ]
+              ]
+
+
+  in
     div
-        [ class "page-footer", zindex 10 ]
-        [ div [ class "page-footer__copyright" ]
-            [ p []
-                [ text "Copyright 2016 -"
-                , a
-                    [ href "http://github.com/fabiommendes/codeschool" ]
-                    [ text "Codeschool" ]
-                ]
-            , p []
-                [ text "Site gerenciado por Fábio M. Mendes na UnB/Gama." ]
-            ]
-        ]
+        [ class "page-footer", zindex 10 ] [fab_]

@@ -10,8 +10,8 @@ import Ui.Generic exposing (..)
 
 {-| The main sidebar component
 -}
-sidebar : Model -> Html Msg
-sidebar model =
+sidebar : String -> Model -> Html Msg
+sidebar topClass model =
     let
         menuitem route icon_ text_ =
             div [ class "sidebar__item" ]
@@ -22,10 +22,10 @@ sidebar model =
                 ]
     in
     div
-        [ class "sidebar", zindex 20 ]
+        [ class topClass, zindex 20 ]
         [ menuitem SubmissionList "history" "Last submissions"
         , menuitem ScoreBoard "stars" "Score board"
         , menuitem Progress "timeline" "Progress"
         , menuitem Learn "school" "Learn"
-        , menuitem Help "help_outline" "Help"
+        , menuitem Help "help_outline" "testing"
         ]

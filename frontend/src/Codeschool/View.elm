@@ -16,6 +16,7 @@ import Page.Questions.Base
 import Page.ScoreBoard
 import Page.Social
 import Page.Submission
+import Page.Actions
 import Ui.Layout
 
 
@@ -63,6 +64,9 @@ getRouteView model =
 
         NotFound ->
             Page.NotFound.view model
+
+        Actions ->
+            Page.Actions.view model
 
 
 view : Html Msg -> Model -> Html Msg

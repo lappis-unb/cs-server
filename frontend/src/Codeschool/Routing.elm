@@ -21,6 +21,7 @@ matchers =
         , map Social (s "social")
         , map Profile (s "profile" </> int)
         , map Logout (s "logout")
+        , map Actions (s "actions")
         ]
 
 
@@ -82,6 +83,9 @@ baseReverse route =
 
         NotFound ->
             "404.html"
+
+        Actions ->
+            "actions/"
 
 
 {-| Reverse URL prepending the "#" symbol
