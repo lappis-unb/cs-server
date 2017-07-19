@@ -16,10 +16,11 @@ archtechiture and provides both main and mainWithFlags.
 
 import Codeschool.Model as Model
 import Codeschool.Msg as Msg
+import Codeschool.Routing exposing (parseLocation)
 import Codeschool.Sub as Sub
 import Codeschool.View as View
 import Html exposing (Html)
-import Navigation
+import Navigation exposing (Location)
 
 
 type alias Model =
@@ -32,9 +33,16 @@ type alias Msg =
 
 {-| Init codeschool model
 -}
-init : Model.Model
-init =
-    Model.init
+init : Location -> ( Model, Cmd msg )
+init location =
+    let
+        route =
+            parseLocation location
+
+        model =
+            Model.init
+    in
+    ( { model | route = route }, Cmd.none )
 
 
 {-| A view function for the site
@@ -63,7 +71,7 @@ subscriptions model =
 main : Program Never Model Msg
 main =
     Html.program
-        { init = ( init, Cmd.none )
+        { init = ( Model.init, Cmd.none )
         , view = view
         , update = update
         , subscriptions = subscriptions
@@ -75,7 +83,7 @@ main =
 mainWithFlags : Program String Model Msg
 mainWithFlags =
     Navigation.programWithFlags Msg.ChangeLocation
-        { init = \x y -> ( init, Cmd.none )
+        { init = \flags location -> init location
         , view = view
         , update = update
         , subscriptions = Sub.subscriptions
