@@ -111,7 +111,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     # Temporary properties defined for compatibility
-    username = property(lambda x: x.alias)
+    username = property(lambda x: x.email)
 
     @property
     def profile(self):

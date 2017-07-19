@@ -1,4 +1,4 @@
 from codeschool.api import router
-from . import viewsets
+from . import views
 
-router.register('users', viewsets.UserViewSet)
+router.register('users', views.UserViewSet)
