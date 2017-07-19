@@ -1849,10 +1849,7 @@ header {
   z-index: 10; }
 
 .page-logo {
-  position: absolute;
-  left: 80px; }
-  .page-logo img {
-    width: 150px; }
+  margin: 0 auto auto 25px; }
 
 .page-header {
   margin: 0;
@@ -1865,7 +1862,6 @@ header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  vertical-align: baseline;
   box-shadow: .page-header __notification, .page-header __link;
     box-shadow-color: #444;
     box-shadow-margin: 0; }
@@ -1915,6 +1911,35 @@ header {
   .page-header__user-menu-button:hover {
     background-color: #5ab307 !important; }
 
+@media (max-width: 840px) {
+  .page-header {
+    align-items: center;
+    height: auto;
+    width: auto;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: column; }
+    .page-header__link:first-of-type {
+      margin-top: 10px; }
+    .page-header__link {
+      width: auto;
+      height: auto;
+      padding: 0 0;
+      margin: 0 0; }
+    .page-header__user-menu-button {
+      margin: 0 0 0 0; }
+
+  .page-logo {
+    margin: 0; }
+
+  .page-header__notification {
+    margin: auto 0; }
+
+  .page-header__special-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%; } }
 footer {
   position: relative;
   box-shadow: 0 -4px 5px 0 rgba(0, 0, 0, 0.14), 0 -1px 10px 0 rgba(0, 0, 0, 0.12), 0 -2px 4px -1px rgba(0, 0, 0, 0.4);
@@ -2248,7 +2273,7 @@ code {
   flex-wrap: wrap;
   justify-content: space-between; }
 
-@media only screen and (max-width: 840px) {
+@media (max-width: 840px) {
   .question-info-list {
     display: flex; }
 

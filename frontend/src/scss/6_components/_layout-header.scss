@@ -6,9 +6,7 @@ header {
 
 
 .page-logo {
-    img {width: 150px;}
-    position: absolute;
-    left: 80px;
+  margin: 0 auto auto 25px;
 }
 
 
@@ -23,14 +21,13 @@ header {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    vertical-align: baseline;
 
-    box-shadow: 
+    box-shadow:
     &__notification,
     &__link {
         color: #444;
         margin: 0;
-        
+
     }
 
     &__link {
@@ -53,8 +50,8 @@ header {
         from {background-color: white;}
         to {background-color: #eee;}
     }
-    
-    
+
+
     &__link:hover {
         color: black;
         animation: linkdarken 300ms;
@@ -65,7 +62,7 @@ header {
     &__notification:hover {
         color: black;
     }
-    
+
 
     &__user-menu {
         paper-listbox {
@@ -82,7 +79,7 @@ header {
         border-radius: 50%;
         color: white;
         background-color: $color-green !important;
-        
+
         .dropdown-trigger {
             font: 1.7em 'Amatic SC', cursive;
             font-weight: bold;
@@ -101,7 +98,7 @@ header {
 
     &__user-menu-title {
         min-width: 120px;
-        margin: 10px;         
+        margin: 10px;
         h1 {
             font-size: 1.2em;
             font-weight: bold;
@@ -111,4 +108,49 @@ header {
     &__user-menu-button:hover {
         background-color: lighten($color-green, 5) !important;
     }
+}
+
+@media (max-width: $breakpoint-large-screen) {
+  .page-header {
+    align-items: center;
+    height: auto;
+    width: auto;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+
+    &__link:first-of-type {
+      margin-top: 10px;
+    }
+
+    &__link {
+      width: auto;
+      height: auto;
+      padding: 0 0;
+      margin: 0 0;
+    }
+
+    &__user-menu-button {
+      margin: 0 0 0 0;
+    }
+
+
+  }
+
+  .page-logo {
+      margin: 0;
+  }
+
+  .page-header__notification {
+      margin: auto 0;
+  }
+
+  .page-header__special-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      width: 100%;
+  }
+
 }
