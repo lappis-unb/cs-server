@@ -2192,7 +2192,7 @@ code {
     color: #19177C; }
 
 .simple-hero {
-  background-color: #4d8bc0;
+  background-color: #f37e77;
   width: 100%;
   color: white; }
   .simple-hero__title {
@@ -2202,6 +2202,13 @@ code {
     font-size: 3.2em; }
   .simple-hero__description > *:nth-child(odd) {
     color: #508dc1; }
+  .simple-hero__page-red {
+    background-color: #f37e77;
+    color: white; }
+  .simple-hero__page-blue {
+    background-color: #4d8bc0; }
+  .simple-hero__page-orange {
+    background-color: #ce6b14; }
 
 .promo-table {
   margin: 0 20px; }
@@ -2244,7 +2251,7 @@ code {
   height: 400px;
   width: 350px; }
   .classroom-info-card__image {
-    background-color: #007474;
+    background-image: url("/background_card.svg");
     background-size: cover;
     position: relative;
     margin-bottom: 10px;
@@ -2293,7 +2300,7 @@ code {
     font-size: 0.9em;
     font-weight: normal; }
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 840px) {
   .classroom-info-list {
     display: flex;
     flex-wrap: wrap; }

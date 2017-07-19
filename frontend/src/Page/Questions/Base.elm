@@ -1,15 +1,17 @@
-module Page.Questions.Base exposing (viewDetail, viewList, clsList)
+module Page.Questions.Base exposing (clsList, viewDetail, viewList)
 
 -- import Codeschool.Msg exposing (..)
 -- import Data.User exposing (User)
+
 import Codeschool.Model exposing (Model)
-import Html exposing (..)
-import Ui.Parts exposing (promoSimple, promoTable, simpleHero)
 import Data.Question exposing (..)
+import Html exposing (..)
 import Html.Attributes exposing (..)
---import Polymer.Paper as Paper exposing (button, fab)
--- import Polymer.Attributes exposing (icon)
-import Ui.Generic exposing (date, emoticon, container)
+import Polymer.Attributes exposing (icon)
+import Polymer.Paper as Paper exposing (button, fab)
+import Ui.Generic exposing (container, date, emoticon)
+import Ui.Parts exposing (promoSimple, promoTable, simpleHero)
+
 
 -- import Html.Events exposing (..)
 
@@ -22,8 +24,8 @@ viewDetail m =
 viewList : List QuestionInfo -> Html msg
 viewList m =
     let
-      -- testing if there are no questions
-      --  m = []
+        -- testing if there are no questions
+        --  m = []
         empty =
             [ emoticon ":-("
             , p [ class "center-text" ]
@@ -47,18 +49,17 @@ viewList m =
 
                 _ ->
                     fab_ :: listing
-
     in
-      div []
-        [ simpleHero "List of Questions" "See all questions available for you"
-        , div []  children
+    div []
+        [ simpleHero "List of Questions" "See all questions available for you" "simple-hero__page-blue"
+        , div [] children
         ]
 
 
 questionInfo : QuestionInfo -> Html msg
 questionInfo cls =
     div [ class "question-info-card" ]
-        [ Ui.Generic.icon [class "question-info-card__icon"] cls.icon
+        [ Ui.Generic.icon [ class "question-info-card__icon" ] cls.icon
         , h1 [ class "question-info-card__title" ]
             [ text cls.questionName
             ]
@@ -67,12 +68,14 @@ questionInfo cls =
             ]
         ]
 
+
 questionOne : QuestionInfo
 questionOne =
     { questionName = "VEMMM MALUCOOOOO"
     , shortDescription = "DESCREVE INSANOOOOOOOOOOOOOO."
     , icon = "code"
     }
+
 
 questionTwo : QuestionInfo
 questionTwo =
@@ -81,6 +84,7 @@ questionTwo =
     , icon = "sentiment_very_satisfied"
     }
 
+
 questionThree : QuestionInfo
 questionThree =
     { questionName = "Sequência de Fibonacci"
@@ -88,12 +92,14 @@ questionThree =
     , icon = "all_out"
     }
 
+
 questionFour : QuestionInfo
 questionFour =
     { questionName = "Sequência de Fibonacci"
     , shortDescription = "Questão para testar seus conhecimentos sobre como funciona o algoritmo de fibonacci"
     , icon = "all_out"
     }
+
 
 clsList : List QuestionInfo
 clsList =

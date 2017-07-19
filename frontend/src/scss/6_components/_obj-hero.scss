@@ -1,5 +1,5 @@
 .simple-hero {
-    background-color: $color-primary-tint;
+    background-color: $color-salmon;
     width: 100%;
     color: white;
 
@@ -13,4 +13,18 @@
     &__description > *:nth-child(odd) {
         color: lighten($color-primary-tint, 0.9);
     }
+
+    &__page-red {
+        background-color: $color-salmon;
+        color: white;
+    }
+
+    &__page-blue {
+        background-color: $color-primary-tint;
+    }
+
+    &__page-orange {
+        background-color: #ce6b14;
+    }
 }
+// BEM: Block, Element, Modifier

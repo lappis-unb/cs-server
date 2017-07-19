@@ -35,7 +35,7 @@ classroomList lst =
             ]
 
         fab_ =
-            fab [ icon "add", class "content-fab", alt "Find a new classroom" ] []
+            div [] []
 
         children =
             case lst of
@@ -45,8 +45,8 @@ classroomList lst =
                 _ ->
                     fab_ :: listing
     in
-    div []
-        [ simpleHero "List of Classrooms" "See all classrooms you are enrolled"
+    div [ class "classroom-page" ]
+        [ simpleHero "List of Classrooms" "See all classrooms you are enrolled" "simple-hero__page-red"
         , div [ class "container" ] children
         ]
 
@@ -82,7 +82,7 @@ classroomInfo cls =
 classroom : Classroom -> Html msg
 classroom cls =
     div []
-        [ simpleHero cls.name cls.shortDescription
+        [ simpleHero cls.name cls.shortDescription "simple-hero__page-red"
         , div [ class "container" ]
             [ h2 [] [ text "What brings you here today?" ]
             , promoTable

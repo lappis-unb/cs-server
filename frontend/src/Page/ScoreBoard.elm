@@ -22,7 +22,7 @@ scores =
 view : Model -> Html msg
 view m =
     div []
-        [ simpleHero "Top scores" "You are #10, with 42 points."
+        [ simpleHero "Top scores" "You are #10, with 42 points." "simple-hero"
         , container []
             [ table []
                 [ thead []

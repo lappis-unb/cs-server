@@ -10,7 +10,7 @@ import Ui.Parts exposing (promoSimple, promoTable, simpleHero)
 view : Model -> Html msg
 view m =
     div []
-        [ simpleHero "Social" ""
+        [ simpleHero "Social" "" "simple-hero__page-orange"
         , container []
             [ promoTable
                 ( promoSimple "record_voice_over"
@@ -19,7 +19,7 @@ view m =
                     [ text
                         """
                         Create a personal blog that you can share projects and
-                        works with your friends and teachers. 
+                        works with your friends and teachers.
                         """
                     , a [ href "/classrooms/" ] [ text "here" ]
                     ]

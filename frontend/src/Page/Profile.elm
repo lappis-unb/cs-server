@@ -17,7 +17,7 @@ profile =
 view : Model -> Html msg
 view m =
     div []
-        [ simpleHero profile.name "Profile"
+        [ simpleHero profile.name "Profile" "simple-hero"
         , container []
             [ h1 [] [ text "Personal info" ]
             , p [] [ text ("Name: " ++ profile.name) ]

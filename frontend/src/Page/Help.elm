@@ -9,7 +9,7 @@ import Ui.Parts exposing (promoSimple, promoTable, simpleHero)
 view : Model -> Html msg
 view m =
     div []
-        [ simpleHero "Help" ""
+        [ simpleHero "Help" "" "simple-hero"
         , container []
             [ promoTable
                 ( promoSimple "school"
