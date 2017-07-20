@@ -64,3 +64,4 @@ type Route
     | Profile Id
     | Logout
     | Actions
+    | Register

@@ -22,6 +22,7 @@ matchers =
         , map Profile (s "profile" </> int)
         , map Logout (s "logout")
         , map Actions (s "actions")
+        , map Register (s "register")
         ]
 
 
@@ -86,6 +87,9 @@ baseReverse route =
 
         Actions ->
             "actions/"
+
+        Register ->
+            "register/"
 
 
 {-| Reverse URL prepending the "#" symbol

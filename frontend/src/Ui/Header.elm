@@ -48,6 +48,7 @@ header model =
                 , listbox [ slot "dropdown-content", class "page-header__user-menu-content" ]
                     [ div [ class "page-header__user-menu-icon" ] [ icon [] "person" ]
                     , div [ class "page-header__user-menu-title" ] [ h1 [] [ text "Actions" ] ]
+                    , item [ onClick (ChangeRoute (Register)) ] [ text "Register" ]
                     , item [ onClick (ChangeRoute (Profile model.user.id)) ] [ text "Profile" ]
                     , item [ href "/logout/" ] [ text "Logout" ]
                     ]

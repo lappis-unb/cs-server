@@ -1,13 +1,15 @@
 module Page.Index exposing (view)
 
-import Codeschool.Model exposing (Model)
+import Codeschool.Model exposing (..)
+import Codeschool.Msg as Msg exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Ui.Generic exposing (container)
 import Ui.Parts exposing (promoSimple, promoTable, simpleHero)
 
 
-view : Model -> Html msg
+view : Model -> Html Msg
 view m =
     div []
         [ simpleHero "Welcome to Codeschool" "" "simple-hero"
@@ -21,7 +23,7 @@ view m =
                         Codeschool provides many programming-based courses.
                         If you are not registered, please click
                         """
-                    , a [ href "/classrooms/" ] [ text "here" ]
+                    , a [ onClick (ChangeRoute (Register)), style [("cursor", "pointer")] ] [ text "here" ]
                     ]
                 , promoSimple "search"
                     "Discover"
