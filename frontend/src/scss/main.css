@@ -2351,6 +2351,31 @@ code {
   .question-info-card {
     flex: 1;
     min-width: 15em; } }
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 50%;
+  margin: 0px auto; }
+
+.item-form {
+  width: 300px;
+  margin: 10px; }
+
+.form-title {
+  font-family: "Amatic SC";
+  font-size: 3.5em;
+  font-weight: bold;
+  margin-right: 20%; }
+
+.submit-button {
+  margin: 10px;
+  background-color: #00a7a7;
+  color: white;
+  border-radius: 5px;
+  width: 50%; }
+
 .main-content {
   min-height: 100vh;
   display: flex;
