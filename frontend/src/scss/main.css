@@ -1816,7 +1816,8 @@ h6 {
   .sidebar__item:hover {
     color: white;
     background: #666666;
-    height: 60px; }
+    height: 60px;
+    cursor: pointer; }
     .sidebar__item:hover .sidebar__text {
       vertical-align: center; }
   .sidebar__text {

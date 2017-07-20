@@ -14,8 +14,8 @@ sidebar : String -> Model -> Html Msg
 sidebar topClass model =
     let
         menuitem route icon_ text_ =
-            div [ class "sidebar__item" ]
-                [ a [ onClick (Msg.ChangeRoute route) ]
+            div [ onClick (Msg.ChangeRoute route), class "sidebar__item" ]
+                [ a [  ]
                     [ icon [ class "sidebar__icon" ] icon_
                     , span [ class "sidebar__text" ] [ text text_ ]
                     ]
@@ -27,5 +27,5 @@ sidebar topClass model =
         , menuitem ScoreBoard "stars" "Score board"
         , menuitem Progress "timeline" "Progress"
         , menuitem Learn "school" "Learn"
-        , menuitem Help "help_outline" "testing"
+        , menuitem Help "help_outline" "Help"
         ]

@@ -25,18 +25,6 @@ view model =
          , listbox [ attribute "slot" "dropdown-content", class "page-header__user-menu-content__sidebar" ]
          [ h1 [class "mobile-button__fonts-title"] [ text "More" ]
          , sidebar "mobile-sidebar" model
-        -- , item [ onClick (ChangeRoute (SubmissionList)), class "mobile-button__item" ] [ h1 [class "mobile-button__fonts"] [text "Last submissions"] ]
-        -- , item [ onClick (ChangeRoute (ScoreBoard)), class "mobile-button__item" ] [ h1 [class "mobile-button__fonts"] [text "Score board"] ]
-        -- , item [ onClick (ChangeRoute (Progress)), class "mobile-button__item" ] [ h1 [class "mobile-button__fonts"] [text "Progress"] ]
-        -- , item [ onClick (ChangeRoute (Learn)), class "mobile-button__item" ] [ h1 [class "mobile-button__fonts"] [text "Learn"] ]
-        -- , item [ onClick (ChangeRoute (Help)), class "mobile-button__item" ] [ h1 [class "mobile-button__fonts"] [text "Help"] ]
          ]
       ]
     ]
-
-
-        -- [ menuitem SubmissionList "history" "Last submissions"
-        -- , menuitem ScoreBoard "stars" "Score board"
-        -- , menuitem Progress "timeline" "Progress"
-        -- , menuitem Learn "school" "Learn"
-        -- , menuitem Help "help_outline" "Help"
