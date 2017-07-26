@@ -9,6 +9,7 @@ module Codeschool.Model
 -}
 
 import Data.User exposing (..)
+import Data.Date exposing (..)
 import Data.Classroom exposing (Classroom, ClassroomInfo)
 
 {-| Main page Model
@@ -19,6 +20,7 @@ type alias Model =
     , classroomInfoList : List ClassroomInfo
     , classroom : Maybe Classroom
     , loadedAssets : List String
+    , date : Date
     }
 
 
@@ -31,6 +33,7 @@ init =
     , classroomInfoList = []
     , classroom = Nothing
     , loadedAssets = []
+    , date = testDate
     }
 
 

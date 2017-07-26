@@ -168,6 +168,10 @@ button {
 button,
 select {
   text-transform: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
 }
 
 

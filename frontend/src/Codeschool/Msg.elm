@@ -6,6 +6,7 @@ module Codeschool.Msg exposing (..)
 import Codeschool.Model exposing (Model, Route)
 import Codeschool.Routing exposing (parseLocation, reverse)
 import Data.User exposing (User, toJson, userDecoder)
+import Data.Date exposing (..)
 import Http exposing (..)
 import Navigation exposing (Location, back, newUrl)
 import Debug
@@ -21,6 +22,8 @@ type Msg
     | DispatchUserRegistration
     | UpdateRegister String String
     | RequestReceiver (Result Http.Error User)
+    | UpdateDate String String
+    | UpdateUserDate
 
 {-| Update function
 -}
@@ -47,6 +50,7 @@ update msg model =
          (model, back int)
 
         DispatchUserRegistration ->
+
           let
               data = sendData model.user
 
@@ -58,7 +62,20 @@ update msg model =
             let
                 newUser = formReceiver model.user inputModel inputValue
             in
-              ({model | user = newUser}, Cmd.none)
+                ({model | user = newUser}, Cmd.none)
+
+        UpdateUserDate ->
+            let
+                newUser = dateUserUpdate model.user model.date
+            in
+                ({model | user = newUser}, Cmd.none)
+
+        UpdateDate field value ->
+            let
+              newDate = dateReceiver model.date field value
+              newModel = {model | date = newDate}
+            in
+              update UpdateUserDate newModel
 
         RequestReceiver user ->
           Debug.log(toString user)
@@ -73,6 +90,25 @@ withElement el lst =
         lst
     else
         el :: lst
+
+
+dateUserUpdate user date =
+  {user | birthday = date.month ++ "-" ++ date.day ++ "-" ++ date.year}
+
+
+dateReceiver : Date -> String -> String -> Date
+dateReceiver date field value =
+    case field of
+      "month" ->
+          {date | month = value}
+      "day" ->
+          {date | day = value}
+      "year" ->
+          {date | year = value}
+      _ ->
+          date
+
+
 formReceiver : User -> String -> String -> User
 formReceiver user inputModel inputValue =
   case inputModel of
@@ -82,6 +118,8 @@ formReceiver user inputModel inputValue =
         {user | alias_ = inputValue}
     "email" ->
         {user | email = inputValue}
+    "email_confirmation" ->
+        {user | email_confirmation = inputValue}
     "password" ->
         {user | password = inputValue}
 
@@ -94,9 +132,6 @@ formReceiver user inputModel inputValue =
     "gender" ->
         {user | gender = inputValue}
 
-    "birthday" ->
-        {user | birthday = inputValue}
-
     "about_me" ->
         {user | about_me = inputValue}
 
@@ -108,9 +143,9 @@ formReceiver user inputModel inputValue =
 sendData user =
       -- Debug.log (toString test)
       -- Http.post "http://cadernos-api.herokuapp.com/users" (Http. ( user) userDecoder
-    Debug.log (toString (toJson user))
+    Debug.log (toString (Data.User.toJson user))
     Http.request
-    { body = toJson user |> Http.jsonBody
+    { body = Data.User.toJson user |> Http.jsonBody
     , expect = Http.expectJson userDecoder
     , headers = []
     , method = "POST"

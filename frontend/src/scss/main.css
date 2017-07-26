@@ -130,7 +130,11 @@ button {
 
 button,
 select {
-  text-transform: none; }
+  text-transform: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: ''; }
 
 button,
 a.button,
@@ -2358,11 +2362,26 @@ code {
   width: 300px;
   margin: 10px; }
 
-.dropdown-menu {
-  width: 290px; }
-
 .select-item {
   width: 300px; }
+
+.disabled-item {
+  display: none; }
+
+.date-form {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  margin: 10px;
+  justify-content: space-between; }
+
+.date-month {
+  width: 90px; }
+
+.date-item {
+  width: 90px;
+  height: 47px;
+  align-self: center; }
 
 .form-title {
   font-family: "Amatic SC";
