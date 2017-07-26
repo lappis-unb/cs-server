@@ -5,6 +5,7 @@ module Data.User exposing (..)
 
 import Json.Decode as Dec exposing (..)
 import Json.Encode as Enc
+import Json.Decode.Pipeline exposing (decode, required)
 
 
 {-| Represents a simple user
@@ -18,27 +19,52 @@ type alias User =
     , password : String -- needed
     , password_confirmation : String -- needed
     , school_id: String -- needed
+    , gender: String
+    , birthday: String
+    , about_me: String
     }
 
 
 testUser : User
 testUser =
-    { name = "Anonymous", alias_ = "unknown", email = "none@gmail.com", email_confirmation = "none@gmail.com", id = 1, password = "123456", password_confirmation = "123456", school_id = "15/0344750" }
+    { name = "Anonymous"
+    , alias_ = "unknown"
+    , email = "none@gmail.com"
+    , email_confirmation = "none@gmail.com"
+    , id = 1, password = "123456"
+    , password_confirmation = "123456"
+    , school_id = "15/0344750"
+    , gender = "none"
+    , birthday = "none"
+    , about_me = "none"
+    }
 
 
 {-| A decoder for user objects
 -}
 userDecoder : Dec.Decoder User
 userDecoder =
-    Dec.map8 User
-        (field "name" string)
-        (field "alias" string)
-        (field "email" string)
-        (field "email_confirmation" string)
-        (field "id" int)
-        (field "password" string)
-        (field "password_confirmation" string)
-        (field "school_id" string)
+    decode User
+      |> required "name" Dec.string
+      |> required "alias" Dec.string
+      |> required "email" Dec.string
+      |> required "email_confirmation" Dec.string
+      |> required "id" Dec.int
+      |> required "password" Dec.string
+      |> required "password_confirmation" Dec.string
+      |> required "school_id" Dec.string
+      |> required "gender" Dec.string
+      |> required "birthday" Dec.string
+      |> required "about_me" Dec.string
+    -- Dec.map8 User
+    --     (field "name" string)
+    --     (field "alias" string)
+    --     (field "email" string)
+    --     (field "email_confirmation" string)
+    --     (field "id" int)
+    --     (field "password" string)
+    --     (field "password_confirmation" string)
+    --     (field "school_id" string)
 
 
 {-| Convert user to JSON
@@ -58,6 +84,9 @@ toJson user =
         , ( "password", str user.password)
         , ( "password_confirmation", str user.password_confirmation)
         , ( "school_id", str user.school_id)
+        , ( "gender", str user.gender)
+        , ( "birthday", str user.birthday)
+        , ( "about_me", str user.about_me)
         ]
 
 

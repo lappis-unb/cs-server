@@ -91,6 +91,16 @@ formReceiver user inputModel inputValue =
     "school_id" ->
         {user | school_id = inputValue}
 
+    "gender" ->
+        {user | gender = inputValue}
+
+    "birthday" ->
+        {user | birthday = inputValue}
+
+    "about_me" ->
+        {user | about_me = inputValue}
+
+
     _ ->
         user
 
@@ -105,7 +115,7 @@ sendData user =
     , headers = []
     , method = "POST"
     , timeout = Nothing
-    , url = "http://192.168.0.17:3000/users"
+    , url = "http://localhost:3000/users"
     , withCredentials = False
     }
       |> Http.send RequestReceiver

@@ -1072,9 +1072,7 @@ select,
   .model_choice_field .input select,
   .typed_choice_field .input select {
     outline: none; }
-  .choice_field .input select ~ span:after,
-  .model_choice_field .input select ~ span:after,
-  .typed_choice_field .input select ~ span:after {
+  .choice_field .input select ~ span:after, .model_choice_field .input select ~ span:after, .typed_choice_field .input select ~ span:after {
     border-radius: 0 6px 6px 0;
     z-index: 0;
     position: absolute;
@@ -1093,9 +1091,9 @@ select,
     color: #d9d9d9;
     background-color: #fafafa;
     margin: 0 1px 1px 0; }
-    .ie .choice_field .input select ~ span:after, .ie
-    .model_choice_field .input select ~ span:after, .ie
-    .typed_choice_field .input select ~ span:after {
+    .ie .choice_field .input select ~ span:after,
+    .ie .model_choice_field .input select ~ span:after,
+    .ie .typed_choice_field .input select ~ span:after {
       display: none; }
 
 input[type=radio],
@@ -1350,10 +1348,7 @@ input[type=button],
     input[type=button]:hover.hover-no,
     .button:hover.hover-no {
       background-color: #cd3238; }
-  input[type=submit].button-longrunning span,
-  input[type=reset].button-longrunning span,
-  input[type=button].button-longrunning span,
-  .button.button-longrunning span {
+  input[type=submit].button-longrunning span, input[type=reset].button-longrunning span, input[type=button].button-longrunning span, .button.button-longrunning span {
     transform: scale(0.9);
     display: inline-block;
     height: 0.9em;
@@ -1363,10 +1358,10 @@ input[type=button],
     visibility: hidden;
     text-align: center;
     padding-right: 0; }
-    body.ready input[type=submit].button-longrunning span, body.ready
-    input[type=reset].button-longrunning span, body.ready
-    input[type=button].button-longrunning span, body.ready
-    .button.button-longrunning span {
+    body.ready input[type=submit].button-longrunning span,
+    body.ready input[type=reset].button-longrunning span,
+    body.ready input[type=button].button-longrunning span,
+    body.ready .button.button-longrunning span {
       transition: all 0.3s ease; }
   input[type=submit].button-longrunning em,
   input[type=reset].button-longrunning em,
@@ -1789,16 +1784,16 @@ h2 {
   font-size: 1.80625em; }
 
 h3 {
-  font-size: 1.53531em; }
+  font-size: 1.5353125em; }
 
 h4 {
-  font-size: 1.30502em; }
+  font-size: 1.305015625em; }
 
 h5 {
-  font-size: 1.10926em; }
+  font-size: 1.1092632812em; }
 
 h6 {
-  font-size: 0.94287em; }
+  font-size: 0.9428737891em; }
 
 .sidebar {
   width: 40px;
@@ -2362,6 +2357,12 @@ code {
 .item-form {
   width: 300px;
   margin: 10px; }
+
+.dropdown-menu {
+  width: 290px; }
+
+.select-item {
+  width: 300px; }
 
 .form-title {
   font-family: "Amatic SC";

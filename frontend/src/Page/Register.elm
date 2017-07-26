@@ -5,7 +5,9 @@ import Codeschool.Msg as Msg exposing (Msg)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
+import Http exposing (Part)
 import Polymer.Paper exposing (button)
+import Polymer.App exposing (..)
 import Ui.Generic exposing (container)
 import Ui.Parts exposing (promoSimple, promoTable, simpleHero)
 
@@ -15,10 +17,6 @@ regForm model field tp modelValue =
             [ input [ placeholder field, type_ tp, onInput (Msg.UpdateRegister modelValue) ] []
             ]
         ]
-
-
-encodeTest =
-    Debug.log "wow...." ""
 
 
 view : Model -> Html Msg
@@ -35,9 +33,15 @@ view model =
             , regForm model "Password" "password" "password"
             , regForm model "Repeat Password" "password" "password_confirmation"
             , h1 [ class "form-title" ] [ text "Optional Fields" ]
-            , regForm model "Gender" "text" ""
-            , regForm model "Birthday" "date" ""
-            , regForm model "About me" "text" ""
+            , Polymer.Paper.dropdownMenu [attribute "label" "Gender", class "dropdown-menu" ]
+              [ Polymer.Paper.listbox [ attribute "slot" "dropdown-content", attribute "selected" "0" ]
+                [ Polymer.Paper.item [class "select-item", onClick (Msg.UpdateRegister "gender" "Male")] [text "Male"]
+                , Polymer.Paper.item [class "select-item", onClick (Msg.UpdateRegister "gender" "Female")] [text "Female"]
+                , Polymer.Paper.item [class "select-item", onClick (Msg.UpdateRegister "gender" "Other")] [text "Other"]
+                ]
+              ]
+            , regForm model "Birthday" "date" "birthday"
+            , regForm model "About me" "text" "about_me"
             , Polymer.Paper.button [ class "submit-button", onClick Msg.DispatchUserRegistration ] [ text "Submit" ]
             ]
         ]
