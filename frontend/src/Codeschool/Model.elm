@@ -16,6 +16,7 @@ import Data.Classroom exposing (Classroom, ClassroomInfo)
 -}
 type alias Model =
     { user : User
+    , userError: UserError
     , route : Route
     , classroomInfoList : List ClassroomInfo
     , classroom : Maybe Classroom
@@ -29,6 +30,7 @@ type alias Model =
 init : Model
 init =
     { user = testUser
+    , userError = testUserError
     , route = Index
     , classroomInfoList = []
     , classroom = Nothing

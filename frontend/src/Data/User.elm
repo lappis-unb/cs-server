@@ -5,7 +5,7 @@ module Data.User exposing (..)
 
 import Json.Decode as Dec exposing (..)
 import Json.Encode as Enc
-import Json.Decode.Pipeline exposing (decode, required)
+import Json.Decode.Pipeline exposing (decode, required, optional)
 
 
 {-| Represents a simple user
@@ -24,6 +24,19 @@ type alias User =
     , about_me: String
     }
 
+type alias UserError =
+    { name : List String
+    , alias_ : List String -- needed
+    , email : List String -- needed
+    , email_confirmation : List String -- needed
+    , password : List String -- needed
+    , password_confirmation : List String -- needed
+    , school_id: List String -- needed
+    , gender: List String
+    , birthday: List String
+    , about_me: List String
+    }
+
 
 testUser : User
 testUser =
@@ -39,6 +52,33 @@ testUser =
     , about_me = "none"
     }
 
+testUserError : UserError
+testUserError =
+    { name = []
+    , alias_ = []
+    , email = []
+    , email_confirmation = []
+    , password = []
+    , password_confirmation = []
+    , school_id = []
+    , gender = []
+    , birthday = []
+    , about_me = []
+    }
+
+userErrorDecoder : Dec.Decoder UserError
+userErrorDecoder =
+    decode UserError
+      |> optional "name" (Dec.list Dec.string) []
+      |> optional "alias" (Dec.list Dec.string) []
+      |> optional "email" (Dec.list Dec.string) []
+      |> optional "email_confirmation" (Dec.list Dec.string) []
+      |> optional "password" (Dec.list Dec.string) []
+      |> optional "password_confirmation" (Dec.list Dec.string) []
+      |> optional "school_id" (Dec.list Dec.string) []
+      |> optional "gender" (Dec.list Dec.string) []
+      |> optional "birthday" (Dec.list Dec.string) []
+      |> optional "about_me" (Dec.list Dec.string) []
 
 {-| A decoder for user objects
 -}

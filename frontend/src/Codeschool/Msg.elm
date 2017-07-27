@@ -5,11 +5,12 @@ module Codeschool.Msg exposing (..)
 
 import Codeschool.Model exposing (Model, Route)
 import Codeschool.Routing exposing (parseLocation, reverse)
-import Data.User exposing (User, toJson, userDecoder)
 import Data.Date exposing (..)
+import Data.User exposing (User, UserError, toJson, userDecoder, userErrorDecoder)
 import Http exposing (..)
+import Json.Decode
+import Json.Decode.Pipeline exposing (decode, required)
 import Navigation exposing (Location, back, newUrl)
-import Debug
 
 {-| Message type
 -}
@@ -77,9 +78,28 @@ update msg model =
             in
               update UpdateUserDate newModel
 
-        RequestReceiver user ->
+        RequestReceiver (Ok user) ->
+          Debug.log "OK OK"
           Debug.log(toString user)
           (model, Cmd.none)
+
+        RequestReceiver (Err (BadStatus response)) ->
+        --  Debug.log "#DeuRuim validacao"
+            decodeHttpErr response.body
+          --  Debug.log (toString (Json.Decode.decodeString  (Json.Decode.field "name" (Json.Decode.list Json.Decode.string)) response.body))
+            (model, Cmd.none)
+
+        RequestReceiver (Err _) ->
+          Debug.log "#DeuRuim de vez"
+          (model, Cmd.none)
+
+
+
+decodeHttpErr response =
+    let
+      test = Json.Decode.decodeString userErrorDecoder response
+    in
+      Debug.log (toString test)
 
 
 {-| Return a new list that surely include the given element
@@ -143,7 +163,7 @@ formReceiver user inputModel inputValue =
 sendData user =
       -- Debug.log (toString test)
       -- Http.post "http://cadernos-api.herokuapp.com/users" (Http. ( user) userDecoder
-    Debug.log (toString (Data.User.toJson user))
+    -- Debug.log (toString (Data.User.toJson user))
     Http.request
     { body = Data.User.toJson user |> Http.jsonBody
     , expect = Http.expectJson userDecoder
