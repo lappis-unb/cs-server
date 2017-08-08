@@ -13,12 +13,10 @@ import Ui.Generic exposing (container)
 import Ui.Parts exposing (promoSimple, promoTable, simpleHero)
 import Json.Decode as Json
 
-regForm model field tp modelValue =
-    div []
-        [ div [ class "item-form" ]
-            [ input [ placeholder field, type_ tp, onInput (Msg.UpdateRegister modelValue) ] []
+regForm model field tp modelValue regex errorMessage =
+    div [ class "item-form" ]
+            [ input [ pattern regex,placeholder field, type_ tp, onInput (Msg.UpdateRegister modelValue), title errorMessage ] []
             ]
-        ]
 
 
 view : Model -> Html Msg
@@ -27,13 +25,17 @@ view model =
         [ simpleHero "Register" "" "simple-hero__page-blue"
         , div [ class "main-container" ]
             [ h1 [ class "form-title" ] [ text "Required Fields" ]
-            , regForm model "Full name" "text" "name"
-            , regForm model "School id" "text" "school_id"
-            , regForm model "Username" "text" "alias_"
-            , regForm model "E-mail" "email" "email"
-            , regForm model "E-mail confirmation" "email" "email_confirmation"
-            , regForm model "Password" "password" "password"
-            , regForm model "Repeat Password" "password" "password_confirmation"
+            , regForm model "Full name" "text" "name" "^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ ]{1,50}$" "Por favor insira um nome entre 1 e 50 caracteres"
+            , regForm model "School id" "text" "school_id" "^[0-9]{1,15}$" "Somente números são permitidos."
+            , regForm model "Username" "text" "alias_" "^[A-Za-z0-9_.]{1,20}$" "Por favor insira um usuário de 1 a 20 caracteres alfanuméricos. Somente _ e . são permitidos."
+            , div [ class "item-form" ]
+                  [ input [placeholder "E-mail", type_ "email", onInput (Msg.UpdateRegister "email") ] []
+                  ]
+            , div [ class "item-form" ]
+                  [ input [placeholder "E-mail confirmation", type_ "email", onInput (Msg.UpdateRegister "email_confirmation") ] []
+                  ]
+            , regForm model "Password" "password" "password" "^[\\S]{6,30}$" "Sua senha deve conter no mínimo 6 caracteres alfanuméricos. Símbolos permitidos."
+            , regForm model "Repeat Password" "password" "password_confirmation" "^[\\S]{6,30}$" "Confirme sua senha"
             , h1 [ class "form-title" ] [ text "Optional Fields" ]
             , select [Html.Attributes.name "Gender", class "item-form", onChange (Msg.UpdateRegister "gender")]
                 [ option [value "", disabled True, selected True, class "disabled-item"] [text "Gender"]
@@ -43,10 +45,12 @@ view model =
                 ]
             , div [class "date-form"]
                 [ monthPicker
-                , input [maxlength 2, placeholder "Day", class "date-item", onInput (Msg.UpdateDate "day")] []
-                , input [maxlength 4, placeholder "Year", class "date-item", onInput (Msg.UpdateDate "year")] []
+                , input [pattern "([0]?[1-9]|[12][0-9]|3[01])", maxlength 2, placeholder "Day", class "date-item", onInput (Msg.UpdateDate "day")] []
+                , input [pattern "^(19|20)[0-9]{2}$", maxlength 4, placeholder "Year", class "date-item", onInput (Msg.UpdateDate "year")] []
                 ]
-            , regForm model "About me" "text" "about_me"
+            , div [ class "item-form" ]
+                  [ textarea [ maxlength 500, placeholder "About me", onInput (Msg.UpdateRegister "about_me") ] []
+                  ]
             , Polymer.Paper.button [ class "submit-button", onClick Msg.DispatchUserRegistration ] [ text "Submit" ]
             ]
         ]
