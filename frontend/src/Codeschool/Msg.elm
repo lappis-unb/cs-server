@@ -8,7 +8,7 @@ import Codeschool.Routing exposing (parseLocation, reverse)
 import Data.Date exposing (..)
 import Data.User exposing (User, UserError, toJson, userDecoder, userErrorDecoder)
 import Http exposing (..)
-import Json.Decode
+import Json.Decode exposing (string)
 import Json.Decode.Pipeline exposing (decode, required)
 import Navigation exposing (Location, back, newUrl)
 
@@ -83,11 +83,16 @@ update msg model =
           Debug.log(toString user)
           (model, Cmd.none)
 
+
         RequestReceiver (Err (BadStatus response)) ->
         --  Debug.log "#DeuRuim validacao"
-            decodeHttpErr response.body
+         let
+             newErrors = userErrorUpdate response.body
+         in
+            Debug.log (toString (decodeHttpErr response.body))
           --  Debug.log (toString (Json.Decode.decodeString  (Json.Decode.field "name" (Json.Decode.list Json.Decode.string)) response.body))
-            (model, Cmd.none)
+          ({model | userError = newErrors}, Cmd.none)
+        --  (model, Cmd.none)
 
         RequestReceiver (Err _) ->
           Debug.log "#DeuRuim de vez"
@@ -99,7 +104,7 @@ decodeHttpErr response =
     let
       test = Json.Decode.decodeString userErrorDecoder response
     in
-      Debug.log (toString test)
+      test
 
 
 {-| Return a new list that surely include the given element
@@ -111,6 +116,23 @@ withElement el lst =
     else
         el :: lst
 
+
+userErrorUpdate response =
+      let
+          updateErrors =
+              { name = [(toString (Json.Decode.decodeString  (Json.Decode.field "name" (Json.Decode.list Json.Decode.string)) response))]
+              , alias_ = []
+              , email = [(toString (Json.Decode.decodeString  (Json.Decode.field "email" (Json.Decode.list Json.Decode.string)) response))]
+              , email_confirmation = []
+              , password = []
+              , password_confirmation = []
+              , school_id = []
+              , gender = []
+              , birthday = []
+              , about_me = []
+              }
+      in
+        updateErrors
 
 dateUserUpdate user date =
   {user | birthday = date.month ++ "-" ++ date.day ++ "-" ++ date.year}
