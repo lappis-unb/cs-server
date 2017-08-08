@@ -87,12 +87,10 @@ update msg model =
         RequestReceiver (Err (BadStatus response)) ->
         --  Debug.log "#DeuRuim validacao"
          let
-             newErrors = userErrorUpdate response.body
+             newErrors = userErrorUpdate model.userError (decodeHttpErr response.body)
          in
-            Debug.log (toString (decodeHttpErr response.body))
-          --  Debug.log (toString (Json.Decode.decodeString  (Json.Decode.field "name" (Json.Decode.list Json.Decode.string)) response.body))
-          ({model | userError = newErrors}, Cmd.none)
-        --  (model, Cmd.none)
+            ({model | userError = newErrors}, Cmd.none)
+
 
         RequestReceiver (Err _) ->
           Debug.log "#DeuRuim de vez"
@@ -107,6 +105,15 @@ decodeHttpErr response =
       test
 
 
+userErrorUpdate userError response =
+    case response of
+      Ok message ->
+        message
+
+      _ ->
+        userError
+
+
 {-| Return a new list that surely include the given element
 -}
 withElement : a -> List a -> List a
@@ -116,23 +123,6 @@ withElement el lst =
     else
         el :: lst
 
-
-userErrorUpdate response =
-      let
-          updateErrors =
-              { name = [(toString (Json.Decode.decodeString  (Json.Decode.field "name" (Json.Decode.list Json.Decode.string)) response))]
-              , alias_ = []
-              , email = [(toString (Json.Decode.decodeString  (Json.Decode.field "email" (Json.Decode.list Json.Decode.string)) response))]
-              , email_confirmation = []
-              , password = []
-              , password_confirmation = []
-              , school_id = []
-              , gender = []
-              , birthday = []
-              , about_me = []
-              }
-      in
-        updateErrors
 
 dateUserUpdate user date =
   {user | birthday = date.month ++ "-" ++ date.day ++ "-" ++ date.year}
