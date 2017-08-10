@@ -53,7 +53,7 @@ update msg model =
         DispatchUserRegistration ->
 
           let
-              data = sendData model.user
+              data = sendRegData model.user
 
           in
         --    Debug.log (toString data)
@@ -78,40 +78,42 @@ update msg model =
             in
               update UpdateUserDate newModel
 
+
+        -- Handle successful user registration
         RequestReceiver (Ok user) ->
           Debug.log "OK OK"
           Debug.log(toString user)
           (model, Cmd.none)
 
 
+        -- Handle API error validations by parsing
+        -- the json response and updating the UserError model
         RequestReceiver (Err (BadStatus response)) ->
-        --  Debug.log "#DeuRuim validacao"
          let
-             newErrors = userErrorUpdate model.userError (decodeHttpErr response.body)
+             newErrors = userErrorUpdate model.userError response.body
          in
             ({model | userError = newErrors}, Cmd.none)
 
 
+        -- Handle others API errors, Ex: connection timeout
         RequestReceiver (Err _) ->
           Debug.log "#DeuRuim de vez"
           (model, Cmd.none)
 
 
 
-decodeHttpErr response =
-    let
-      test = Json.Decode.decodeString userErrorDecoder response
-    in
-      test
-
-
+userErrorUpdate : UserError -> String -> UserError
 userErrorUpdate userError response =
-    case response of
-      Ok message ->
-        message
+    let
+        decodedResponse =
+            Json.Decode.decodeString userErrorDecoder response
+    in
+        case decodedResponse of
+        Ok message ->
+            message
 
-      _ ->
-        userError
+        _ ->
+            userError
 
 
 {-| Return a new list that surely include the given element
@@ -124,6 +126,7 @@ withElement el lst =
         el :: lst
 
 
+dateUserUpdate : User -> Date -> User
 dateUserUpdate user date =
   {user | birthday = date.month ++ "-" ++ date.day ++ "-" ++ date.year}
 
@@ -146,12 +149,16 @@ formReceiver user inputModel inputValue =
   case inputModel of
     "name" ->
         {user | name = inputValue}
+
     "alias_" ->
         {user | alias_ = inputValue}
+
     "email" ->
         {user | email = inputValue}
+
     "email_confirmation" ->
         {user | email_confirmation = inputValue}
+
     "password" ->
         {user | password = inputValue}
 
@@ -167,22 +174,22 @@ formReceiver user inputModel inputValue =
     "about_me" ->
         {user | about_me = inputValue}
 
-
     _ ->
         user
 
 
-sendData user =
-      -- Debug.log (toString test)
-      -- Http.post "http://cadernos-api.herokuapp.com/users" (Http. ( user) userDecoder
-    -- Debug.log (toString (Data.User.toJson user))
-    Http.request
-    { body = Data.User.toJson user |> Http.jsonBody
-    , expect = Http.expectJson userDecoder
-    , headers = []
-    , method = "POST"
-    , timeout = Nothing
-    , url = "http://localhost:3000/users"
-    , withCredentials = False
-    }
-      |> Http.send RequestReceiver
+sendRegData : User -> Cmd Msg
+sendRegData user =
+    let
+        userRegRequest =
+            Http.request
+                { body = Data.User.toJson user |> Http.jsonBody
+                , expect = Http.expectJson userDecoder
+                , headers = []
+                , method = "POST"
+                , timeout = Nothing
+                , url = "http://localhost:3000/users"
+                , withCredentials = False
+                }
+    in
+        userRegRequest |> Http.send RequestReceiver
