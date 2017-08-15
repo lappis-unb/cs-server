@@ -25,12 +25,14 @@ view model =
         [ simpleHero "Register" "" "simple-hero__page-blue"
         , div [ class "main-container" ]
             [ h1 [ class "form-title" ] [ text "Required Fields" ]
-            , regForm model "Full name" "text" "name" "^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ ]{1,50}$" "Por favor insira um nome entre 1 e 50 caracteres"
-            , regForm model "School id" "text" "school_id" "^[0-9]{1,15}$" "Somente números são permitidos."
-            , regForm model "Username" "text" "alias_" "^[A-Za-z0-9_.]{1,20}$" "Por favor insira um usuário de 1 a 20 caracteres alfanuméricos. Somente _ e . são permitidos."
+            , regForm model "Full name" "text" "name" "^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ ]{5,50}$" "Por favor insira um nome entre 5 e 50 caracteres"
+            , showErrors model.userError.name
+            , regForm model "School id" "text" "school_id" "^[0-9]{4,15}$" "Somente números são permitidos."
+            , regForm model "Username" "text" "alias_" "^[A-Za-z0-9_.]{5,20}$" "Por favor insira um usuário de 5 a 20 caracteres alfanuméricos. Somente _ e . são permitidos."
             , div [ class "item-form" ]
                   [ input [placeholder "E-mail", type_ "email", onInput (Msg.UpdateRegister "email") ] []
                   ]
+            , showErrors model.userError.email
             , div [ class "item-form" ]
                   [ input [placeholder "E-mail confirmation", type_ "email", onInput (Msg.UpdateRegister "email_confirmation") ] []
                   ]
@@ -54,6 +56,13 @@ view model =
             , Polymer.Paper.button [ class "submit-button", onClick Msg.DispatchUserRegistration ] [ text "Submit" ]
             ]
         ]
+
+
+showErrors modelUserError =
+  if modelUserError == [] then
+      div [] []
+  else
+      div [] [text  (toString (List.take 1 modelUserError))]
 
 radio option =
     Html.label [class "radio-item"]

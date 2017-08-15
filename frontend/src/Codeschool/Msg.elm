@@ -78,6 +78,7 @@ update msg model =
             in
               update UpdateUserDate newModel
 
+
         RequestReceiver (Ok user) ->
           Debug.log "OK OK"
           Debug.log(toString user)
@@ -85,10 +86,10 @@ update msg model =
 
 
         RequestReceiver (Err (BadStatus response)) ->
-        --  Debug.log "#DeuRuim validacao"
          let
              newErrors = userErrorUpdate model.userError (decodeHttpErr response.body)
          in
+            Debug.log "#DeuRuim validacao"
             ({model | userError = newErrors}, Cmd.none)
 
 

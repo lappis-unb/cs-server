@@ -8,9 +8,11 @@ module Codeschool.Model
 {-| Page model components.
 -}
 
-import Data.User exposing (..)
-import Data.Date exposing (..)
 import Data.Classroom exposing (Classroom, ClassroomInfo)
+import Data.Date exposing (..)
+import Data.User exposing (..)
+import Time exposing (Time)
+import Toast exposing (Toast)
 
 {-| Main page Model
 -}
@@ -22,6 +24,8 @@ type alias Model =
     , classroom : Maybe Classroom
     , loadedAssets : List String
     , date : Date
+    , time : Time
+    , toast : Toast String
     }
 
 
@@ -36,6 +40,8 @@ init =
     , classroom = Nothing
     , loadedAssets = []
     , date = testDate
+    , time = 0
+    , toast = Toast.initWithTransitionDelay (Time.second * 1.5)
     }
 
 
