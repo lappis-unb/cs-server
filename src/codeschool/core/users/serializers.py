@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+from rest_framework.decorators import detail_route, list_route
 from . import models
 
 
@@ -50,3 +50,7 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Profile
+        fields = (
+            'gender','phone','date_of_birth'
+            ,'website','about_me', 'visibility'
+        )

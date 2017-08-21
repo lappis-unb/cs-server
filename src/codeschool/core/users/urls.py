@@ -28,8 +28,11 @@ urlpatterns = [
         name='change-email',
     ),
     url(
-        r'profile/$',
-        views.current_user_profile,
+        r'users/(?P<pk>[0-9]+)/profile/$',
+        # r'users/<pk>/set_profile/$',
+        # r'profile/$',
+        # ^users/{pk}/set_profile/$,
+        views.UserViewSet.set_profile,
         name='users-profile',
     ),
     url(

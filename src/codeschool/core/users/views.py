@@ -11,6 +11,8 @@ from . import bricks
 from . import models
 from . import serializers
 from .forms import LoginForm, UserForm, ProfileForm
+from rest_framework.decorators import detail_route, list_route
+from rest_framework.response import Response
 
 authentication_backend = get_config('AUTHENTICATION_BACKENDS')[-1]
 
@@ -25,6 +27,18 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
+
+    @detail_route(methods=['post'])
+    def set_profile(self, request, pk=None):
+        profile = self.get_object()
+        serializer = serializers.ProfileSerializer(data=request.data)
+        if serializer.is_valid():
+            profile.set_profile(serializer.data['phone'])
+            profile.save()
+            return Response({'status': 'gender set'})
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
 
 #

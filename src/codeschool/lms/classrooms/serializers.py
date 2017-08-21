@@ -11,7 +11,7 @@ class ClassroomSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Classroom
         fields = (
-            'url', 'name', 'slug', 'discipline', 'course', 'teacher',
+            'url', 'name', 'slug', 'discipline', 'teacher',
             'short_description', 'description',
             'students', 'staff',
             'subscription_passphrase',
