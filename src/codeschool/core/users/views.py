@@ -27,7 +27,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
-    permission_classes= (IsAdminOrSelf,)
+    permission_classes = (IsAdminOrSelf,)
+
     @detail_route(methods=['post'])
     def set_profile(self, request, pk=None):
         profile = self.get_object()

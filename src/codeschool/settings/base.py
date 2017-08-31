@@ -9,3 +9,4 @@ from ._secrets import SECRET_KEY # noqa
 from ._config import * # noqa
 from ._logging import LOGGING  # noqa
 from ._templates import TEMPLATES  # noqa
+from ._cors import * # noqa

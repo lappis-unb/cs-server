@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_framework.decorators import detail_route, list_route
+from django.contrib.auth.hashers import make_password
 from . import models
 
 
@@ -9,10 +10,21 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     """
 
     role = serializers.SerializerMethodField()
+    password_confirmation = serializers.CharField(write_only=True)
 
     class Meta:
         model = models.User
-        fields = ('url', 'alias', 'role')
+        fields = ('url', 'alias', 'role','email', 'name', 'school_id', 'password', 'password_confirmation')
+        write_only = {'write_only': True}
+        extra_kwargs = {
+                'email': write_only,
+                'role': write_only,
+                'name': write_only,
+                'school_id': write_only,
+                'password': write_only,
+                'password_confirmation': write_only
+        }
+        #write_only_fields = ('email', 'name', 'school_id', 'role', 'password', 'password_validation')
 
     def get_role(self, obj):
         if(obj.role == models.User.ROLE_STUDENT):
@@ -24,6 +36,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         elif(obj.role == models.User.ROLE_ADMIN):
             return 'admin'
 
+    def create(self, validated_data):
+        password_confirmation = validated_data.pop('password_confirmation', None)
+        if(password_confirmation == validated_data['password']):
+            validated_data['password'] = make_password(validated_data['password'])
+            return super(UserSerializer, self).create(validated_data)
+        else:
+            raise Exception()
 
 class FullUserSerializer(serializers.ModelSerializer):
     """

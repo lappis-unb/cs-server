@@ -20,6 +20,7 @@ from wagtail.wagtailcore import urls as wagtail_urls
 
 from .api import router, import_api_modules
 from .core.config.views import index_view
+from rest_framework_jwt.views import obtain_jwt_token
 
 import_api_modules()
 
@@ -30,7 +31,7 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^admin/', include('wagtail.wagtailadmin.urls')),
     url(r'^', include('codeschool.core.users.urls', namespace='auth')),
-
+    url(r'^api-token-auth/', obtain_jwt_token),
 ]
 
 # Optional debug views
