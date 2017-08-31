@@ -92,6 +92,7 @@ setup(
         'rules',
         'djangorestframework',
         'werkzeug',
+
         'djangorestframework-jwt',
         'django-cors-headers',
 
