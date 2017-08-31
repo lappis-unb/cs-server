@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'rules',
+    'corsheaders',
 
     # Wagtail admin requires this even in production. We simply disable the
     # staticfiles urls in production

@@ -92,7 +92,8 @@ setup(
         'rules',
         'djangorestframework',
         'werkzeug',
-	'djangorestframework-jwt',
+        'djangorestframework-jwt',
+        'django-cors-headers',
 
         # Wagtail
         'wagtail~=1.10',

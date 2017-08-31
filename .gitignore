@@ -46,3 +46,5 @@ local/*
 # A pycharm bug keeps re-creating this file!
 src/__init__.py
 
+# VSCode setings folder
+.vscode
