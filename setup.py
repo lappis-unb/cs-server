@@ -92,6 +92,7 @@ setup(
         'rules',
         'djangorestframework',
         'werkzeug',
+	'djangorestframework-jwt',
 
         # Wagtail
         'wagtail~=1.10',
