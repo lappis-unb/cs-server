@@ -20,7 +20,7 @@ from wagtail.wagtailcore import urls as wagtail_urls
 
 from .api import router, import_api_modules
 from .core.config.views import index_view
-from rest_framework_jwt.views import obtain_jwt_token
+from codeschool.core.users.token import obtain_jwt_token
 
 import_api_modules()
 
