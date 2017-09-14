@@ -21,16 +21,21 @@ authentication_backend = get_config('AUTHENTICATION_BACKENDS')[-1]
 #
 # REST endpoints
 #
-class UserDetailViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAdminOrSelf,)
-    queryset = models.User.objects.all()
-    serializer_class = serializers.UserDetailSerializer
-    
-    print(permission_classes)
-    '''def get_queryset(self):
-        id = self.request.user.id
-        return models.User.objects.filter(id=id)'''
+# class UserDetailViewSet(viewsets.ModelViewSet):
+#     permission_classes = (IsAdminOrSelf,)
+#     queryset = models.User.objects.all()
+#     serializer_class = serializers.UserDetailSerializer
+#
+#     print(permission_classes)
+#     '''def get_queryset(self):
+#         id = self.request.user.id
+#         return models.User.objects.filter(id=id)'''
 
+class ProfileViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAdminOrSelf,)
+    method = 'put'
+    queryset = models.Profile.objects.all()
+    serializer_class = serializers.ProfileSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     """

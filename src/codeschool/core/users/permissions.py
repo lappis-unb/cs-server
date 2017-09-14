@@ -16,7 +16,6 @@ class IsAdminOrSelf(BasePermission):
         return True
 
     def has_object_permission(self, request, view, obj):
-        print("haso")
         if request.user.is_staff:
             return True
         return request.user == obj
