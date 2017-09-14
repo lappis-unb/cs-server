@@ -14,22 +14,33 @@ from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
 from .permissions import IsAdminOrSelf
+from .viewsets import *
 authentication_backend = get_config('AUTHENTICATION_BACKENDS')[-1]
 
 
 #
 # REST endpoints
 #
+class UserDetailViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAdminOrSelf,)
+    queryset = models.User.objects.all()
+    serializer_class = serializers.UserDetailSerializer
+    
+    print(permission_classes)
+    '''def get_queryset(self):
+        id = self.request.user.id
+        return models.User.objects.filter(id=id)'''
+
+
 class UserViewSet(viewsets.ModelViewSet):
     """
     Active users in the Codeschool platform.
     """
-
+    permission_classes = (IsAdminOrSelf,)
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
-    permission_classes = (IsAdminOrSelf,)
 
-    @detail_route(methods=['post'])
+    @detail_route(methods=['post'],permission_classes=[IsAdminOrSelf])
     def set_profile(self, request, pk=None):
         profile = self.get_object()
         serializer = serializers.ProfileSerializer(data=request.data)
@@ -40,6 +51,7 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
+
 
 
 #
@@ -171,3 +183,5 @@ def login_context():
         user_form=UserForm(),
         profile_form=ProfileForm(),
     )
+def profile_view(request, username):
+    u = models.User.objects.get(username=username)
