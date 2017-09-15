@@ -23,7 +23,7 @@ authentication_backend = get_config('AUTHENTICATION_BACKENDS')[-1]
 #
 
 class ProfileViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAdminOrSelf,)
+    permission_classes = (UserPermissions,)
     method = 'put'
     queryset = models.Profile.objects.all()
     serializer_class = serializers.ProfileSerializer
