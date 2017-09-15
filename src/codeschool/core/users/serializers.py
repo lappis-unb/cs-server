@@ -34,18 +34,21 @@ class UserSerializer(serializers.ModelSerializer):
 
     role = serializers.SerializerMethodField()
     password_confirmation = serializers.CharField(write_only=True)
+    profile = ProfileSerializer(read_only = True)
 
     class Meta:
         model = models.User
-        fields = ('alias', 'role','email', 'name', 'school_id', 'password', 'password_confirmation')
+        fields = ('alias', 'role','email', 'name', 'school_id', 'password', 'password_confirmation', 'profile')
         write_only = {'write_only': True}
+        read_only = {'read-only': True}
         extra_kwargs = {
                 'email': write_only,
                 'role': write_only,
                 'name': write_only,
                 'school_id': write_only,
                 'password': write_only,
-                'password_confirmation': write_only
+                'password_confirmation': write_only,
+                'profile': read_only
 	}
 
     def get_role(self, obj):
