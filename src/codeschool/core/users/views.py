@@ -14,7 +14,6 @@ from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
 from .permissions import UserPermissions
-from .viewsets import *
 
 authentication_backend = get_config('AUTHENTICATION_BACKENDS')[-1]
 
