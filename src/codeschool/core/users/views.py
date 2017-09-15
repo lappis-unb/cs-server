@@ -13,7 +13,7 @@ from .forms import LoginForm, UserForm, ProfileForm
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
-from .permissions import IsAdminOrSelf, UserPermissions
+from .permissions import UserPermissions
 from .viewsets import *
 authentication_backend = get_config('AUTHENTICATION_BACKENDS')[-1]
 
@@ -21,15 +21,6 @@ authentication_backend = get_config('AUTHENTICATION_BACKENDS')[-1]
 #
 # REST endpoints
 #
-# class UserDetailViewSet(viewsets.ModelViewSet):
-#     permission_classes = (IsAdminOrSelf,)
-#     queryset = models.User.objects.all()
-#     serializer_class = serializers.UserDetailSerializer
-#
-#     print(permission_classes)
-#     '''def get_queryset(self):
-#         id = self.request.user.id
-#         return models.User.objects.filter(id=id)'''
 
 class ProfileViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdminOrSelf,)
@@ -45,7 +36,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserSerializer
     permission_classes = (UserPermissions,)
 
-    @detail_route(methods=['post'],permission_classes=[IsAdminOrSelf])
+    @detail_route(methods=['post'])
     def set_profile(self, request, pk=None):
         profile = self.get_object()
         serializer = serializers.ProfileSerializer(data=request.data)
