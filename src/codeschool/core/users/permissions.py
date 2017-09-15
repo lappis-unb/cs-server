@@ -5,25 +5,6 @@ import re
 
 # https://github.com/HazyResearch/elementary/blob/master/django/resources/views.py
 
-class IsAdminOrSelf(BasePermission):
-    def has_permission(self, request, view):
-        print('='*15)
-        print(request)
-        if not request.user or not request.user.is_authenticated():
-            return False
-        if not request.user.is_staff:
-            all_info = view.queryset
-            owner_user_id = request.user.id
-            owner_user_info = User.objects.filter(id=owner_user_id)
-            view.queryset = owner_user_info
-            return request.method in ['GET', 'HEAD', 'OPTIONS', 'PUT']
-        return True
-
-    def has_object_permission(self, request, view, obj):
-        print("haso")
-        if request.user.is_staff:
-            return True
-        return request.user == obj
 
 class UserPermissions(BasePermission):
     """
@@ -31,28 +12,25 @@ class UserPermissions(BasePermission):
     """
 
     def has_permission(self, request, view):
-        print(request.path)
-
         single_user_regex = r"/api/users/[0-9]+"
         user_regex = r"/api/users"
+        if request.user.is_authenticated() and not request.user.is_staff:
+            all_info = view.queryset
+            owner_user_id = request.user.id
+            owner_user_info = User.objects.filter(id=owner_user_id)
+            view.queryset = owner_user_info
+            return request.method in ['GET', 'HEAD', 'OPTIONS', 'PUT']
         if re.match(single_user_regex, request.path):
             url_user_search = re.search(r"[0-9]+", request.path)
             url_user_id = int(url_user_search.group(0))
-            
             return request.user.id == url_user_id or request.user.is_staff
         if not request.user or not request.user.is_authenticated():
             return request.method == 'POST'
         if re.match(user_regex, request.path):
             return request.user.is_staff
-        if not request.user.is_staff:
-            return request.method in ['GET', 'HEAD', 'OPTIONS', 'PUT']
-            
         return False
 
     def has_object_permission(self, request, view, obj):
         if request.user.is_staff:
             return True
         return request.user == obj
-
-        
-
