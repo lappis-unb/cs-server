@@ -4,7 +4,30 @@ from django.contrib.auth.hashers import make_password
 from . import models
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
+    """
+    Serialize user profiles
+    """
+
+    # TODO: hyperlinks as sub-resource under each user
+    # TODO: add extra user fields?
+    # TODO: nullify fields that user is not allowed to see? (this may be
+    # expensive in querysets)
+
+
+    class Meta:
+        model = models.Profile
+        fields = (
+        'gender','phone','date_of_birth'
+        ,'website','about_me', 'visibility', 'user'
+        )
+        read_only = {'read_only': True}
+        extra_kwargs = {
+                'user':read_only
+        }
+
+
+class UserSerializer(serializers.ModelSerializer):
     """
     Serialize User objects.
     """
@@ -14,7 +37,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.User
-        fields = ('url', 'alias', 'role','email', 'name', 'school_id', 'password', 'password_confirmation')
+        fields = ('alias', 'role','email', 'name', 'school_id', 'password', 'password_confirmation')
         write_only = {'write_only': True}
         extra_kwargs = {
                 'email': write_only,
@@ -23,8 +46,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
                 'school_id': write_only,
                 'password': write_only,
                 'password_confirmation': write_only
-        }
-        #write_only_fields = ('email', 'name', 'school_id', 'role', 'password', 'password_validation')
+	}
 
     def get_role(self, obj):
         if(obj.role == models.User.ROLE_STUDENT):
@@ -36,6 +58,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         elif(obj.role == models.User.ROLE_ADMIN):
             return 'admin'
 
+
     def create(self, validated_data):
         password_confirmation = validated_data.pop('password_confirmation', None)
         if(password_confirmation == validated_data['password']):
@@ -43,6 +66,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             return super(UserSerializer, self).create(validated_data)
         else:
             raise Exception()
+
 
 class FullUserSerializer(serializers.ModelSerializer):
     """
@@ -55,21 +79,3 @@ class FullUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
         fields = ('url', 'alias', 'name', 'role', 'email', 'school_id')
-
-
-class ProfileSerializer(serializers.HyperlinkedModelSerializer):
-    """
-    Serialize user profiles
-    """
-
-    # TODO: hyperlinks as sub-resource under each user
-    # TODO: add extra user fields?
-    # TODO: nullify fields that user is not allowed to see? (this may be
-    # expensive in querysets)
-
-    class Meta:
-        model = models.Profile
-        fields = (
-            'gender','phone','date_of_birth'
-            ,'website','about_me', 'visibility'
-        )
