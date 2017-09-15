@@ -14,6 +14,13 @@ class UserPermissions(BasePermission):
     def has_permission(self, request, view):
         single_user_regex = r"/api/users/[0-9]+"
         user_regex = r"/api/users"
+        profile_regex =  r"/api/profile/"
+        if request.user.is_authenticated() and not request.user.is_staff and re.match(profile_regex,request.path):
+            all_info = view.queryset
+            owner_user_id = request.user.id
+            owner_user_info = Profile.objects.filter(id=owner_user_id)
+            view.queryset = owner_user_info
+            return request.method in ['GET', 'HEAD', 'OPTIONS', 'PUT']
         if request.user.is_authenticated() and not request.user.is_staff:
             all_info = view.queryset
             owner_user_id = request.user.id
