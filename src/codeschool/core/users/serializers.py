@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.decorators import detail_route, list_route
 from django.contrib.auth.hashers import make_password
 from . import models
-from .permissions import IsAdminOrSelf
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     """
@@ -33,7 +33,6 @@ class UserSerializer(serializers.ModelSerializer):
     """
 
     role = serializers.SerializerMethodField()
-    #password_confirmation = serializers.CharField(write_only=True)
     password_confirmation = serializers.CharField(write_only=True)
 
     class Meta:
@@ -46,9 +45,8 @@ class UserSerializer(serializers.ModelSerializer):
                 'name': write_only,
                 'school_id': write_only,
                 'password': write_only,
-                # 'profile':write_only,
                 'password_confirmation': write_only
-        }
+	}
 
     def get_role(self, obj):
         if(obj.role == models.User.ROLE_STUDENT):
@@ -60,48 +58,14 @@ class UserSerializer(serializers.ModelSerializer):
         elif(obj.role == models.User.ROLE_ADMIN):
             return 'admin'
 
+
     def create(self, validated_data):
-        password_confirmation = validated_data.pop('password_confirmation', None)
-        if(password_confirmation == validated_data['password']):
-            return super(UserSerializer, self).create(validated_data)
-        else:
-            raise Exception()
-
-
-    # def create(self, validated_data):
-    #     profile_data = validated_data.pop('profile',None)
-    #     user = models.User.objects.create(**validated_data)
-    #     models.Profile.create(user=user, **profile_data)
-    #     return user
-
-
-    '''def update(self, instance, validated_data):
-
-        #,'website','about_me', 'visibility'
-        profile_data = validated_data.pop('profile')
-        profile = instance.profile
-        instance.email = validated_data.get('email',instance.email)
-        instance.role = validated_data.get('role',instance.role)
-        instance.name = validated_data.get('name',instance.name)
-        #profile = instance.profile
-        #instance.gender = validated_data.get('gender', instance.gender)
-        #instance.phone = validated_data.get('phone', instance.phone)
-        #instance.date_of_birth = validated_data('date_of_birth',instance.date_of_birth)
-        instance.save()
-        profile.save()
-        #profile.save()
-
-        return instance'''
-
-
-
-    '''def create(self, validated_data):
         password_confirmation = validated_data.pop('password_confirmation', None)
         if(password_confirmation == validated_data['password']):
             validated_data['password'] = make_password(validated_data['password'])
             return super(UserSerializer, self).create(validated_data)
         else:
-            raise Exception()'''
+            raise Exception()
 
 
 class FullUserSerializer(serializers.ModelSerializer):
