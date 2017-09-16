@@ -172,12 +172,12 @@ class Profile(models.TimeStampedModel):
     Social information about users.
     """
 
-    GENDER_MALE, GENDER_FEMALE, GENDER_OTHER = 0, 1, 2
-    GENDER_CHOICES = [
-        (GENDER_MALE, _('Male')),
-        (GENDER_FEMALE, _('Female')),
-        (GENDER_OTHER, _('Other')),
-    ]
+    # GENDER_MALE, GENDER_FEMALE, GENDER_OTHER = "0", "1", "2"
+    # GENDER_CHOICES = [
+    #     (GENDER_MALE, _('Male')),
+    #     (GENDER_FEMALE, _('Female')),
+    #     (GENDER_OTHER, _('Other')),
+    # ]
 
     VISIBILITY_PUBLIC, VISIBILITY_FRIENDS, VISIBILITY_HIDDEN = range(3)
     VISIBILITY_CHOICES = enumerate(
@@ -201,23 +201,21 @@ class Profile(models.TimeStampedModel):
         _('Phone'),
         max_length=20,
         blank=True,
-        null=True,
     )
-    gender = models.SmallIntegerField(
+    gender = models.CharField(
         _('gender'),
-        choices=GENDER_CHOICES,
-        blank=True,
-        null=True,
+        default="none",
+        max_length=6
+
     )
     date_of_birth = models.DateField(
         _('date of birth'),
-        blank=True,
-        null=True,
+        default = datetime.date(1,1,1),
+        blank=True
     )
     website = models.URLField(
         _('Website'),
         blank=True,
-        null=True,
         help_text=_(
             'A website that is shown publicly in your profile.'
         )
