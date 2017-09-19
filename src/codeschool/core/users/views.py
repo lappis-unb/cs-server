@@ -14,7 +14,6 @@ from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
 from .permissions import UserPermissions
-
 authentication_backend = get_config('AUTHENTICATION_BACKENDS')[-1]
 
 
@@ -22,11 +21,10 @@ authentication_backend = get_config('AUTHENTICATION_BACKENDS')[-1]
 # REST endpoints
 #
 
-class ProfileViewSet(viewsets.ModelViewSet):
+class UserDetailViewSet(viewsets.ModelViewSet):
     permission_classes = (UserPermissions,)
-    method = 'put'
-    queryset = models.Profile.objects.all()
-    serializer_class = serializers.ProfileSerializer
+    queryset = models.User.objects.all()
+    serializer_class = serializers.UserDetailSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -84,7 +82,7 @@ def edit_profile(request):
 
 @login_required
 def change_password(request, pk):
-    raise NotImplementedError
+    print("aaaa",request.user)
 
 
 @login_required

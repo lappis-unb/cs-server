@@ -5,26 +5,15 @@ from . import models
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    """
-    Serialize user profiles
-    """
-
-    # TODO: hyperlinks as sub-resource under each user
-    # TODO: add extra user fields?
-    # TODO: nullify fields that user is not allowed to see? (this may be
-    # expensive in querysets)
 
 
     class Meta:
         model = models.Profile
-        fields = (
-        'gender','phone','date_of_birth'
-        ,'website','about_me', 'visibility', 'user'
-        )
-        read_only = {'read_only': True}
-        extra_kwargs = {
-                'user':read_only
-        }
+        fields = ('gender','phone','website','date_of_birth',
+        'website','about_me', 'visibility','user')
+
+        read_only = {'read_only':True}
+        extra_kwargs = {"user":read_only}
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -33,20 +22,17 @@ class UserSerializer(serializers.ModelSerializer):
     """
 
     role = serializers.SerializerMethodField()
-    password_confirmation = serializers.CharField(write_only=True)
+    profile = ProfileSerializer()
 
     class Meta:
         model = models.User
-        fields = ('alias', 'role','email', 'name', 'school_id', 'password', 'password_confirmation')
+        fields = ('username', 'alias', 'role','email', 'name', 'school_id','password', 'profile')
         write_only = {'write_only': True}
+        read_only = {'read_only':True}
+
         extra_kwargs = {
-                'email': write_only,
-                'role': write_only,
-                'name': write_only,
-                'school_id': write_only,
-                'password': write_only,
-                'password_confirmation': write_only
-	}
+                'profile':write_only,
+        }
 
     def get_role(self, obj):
         if(obj.role == models.User.ROLE_STUDENT):
@@ -60,12 +46,44 @@ class UserSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
-        password_confirmation = validated_data.pop('password_confirmation', None)
-        if(password_confirmation == validated_data['password']):
-            validated_data['password'] = make_password(validated_data['password'])
-            return super(UserSerializer, self).create(validated_data)
-        else:
-            raise Exception()
+        print(validated_data)
+        validated_data['password'] = make_password(validated_data['password'])
+        profile_data = validated_data.pop('profile')
+        user = super(UserDetailSerializer,self).create(validated_data)
+        self.update_or_create_profile(user,profile_data)
+        print(profile_data)
+
+        return user
+
+    def update_or_create_profile(self, user, profile_data):
+        # This always creates a Profile if the User is missing one;
+        # change the logic here if that's not right for your app
+        models.Profile.objects.update_or_create(user=user, defaults=profile_data)
+
+    def update(self, instance, validated_data):
+
+
+        profile_data = validated_data.pop('profile')
+        profile = instance.profile
+
+        instance.password = make_password(validated_data.get('password'))
+        instance.alias = validated_data.get('alias')
+        instance.email = validated_data.get('email')
+        instance.name = validated_data.get('name')
+        instance.school_id = validated_data.get('school_id')
+
+        instance.profile.gender = profile_data.get('gender')
+        instance.profile.phone = profile_data.get('phone')
+        instance.profile.date_of_birth = profile_data.get('date_of_birth')
+        instance.profile.about_me = profile_data.get('about_me')
+        instance.profile.website = profile_data.get('website')
+
+
+        instance.save()
+        profile.save()
+
+        return instance
+
 
 
 class FullUserSerializer(serializers.ModelSerializer):
