@@ -26,6 +26,12 @@ class UserDetailViewSet(viewsets.ModelViewSet):
     queryset = models.User.objects.all()
     serializer_class = serializers.UserDetailSerializer
 
+    def get_serializer_class(self):
+        serializer_class = self.serializer_class
+        if self.request.method == 'POST':
+            serializer_class = serializers.CreateUserSerializer
+        return serializer_class
+
 class UserViewSet(viewsets.ModelViewSet):
     """
     Active users in the Codeschool platform.
