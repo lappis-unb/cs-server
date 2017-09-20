@@ -24,11 +24,10 @@ class UserPermissions(BasePermission):
             owner_user_id = request.user.id
             owner_user_info = User.objects.filter(id=owner_user_id)
             view.queryset = owner_user_info
-
             return request.method in ['GET', 'HEAD', 'OPTIONS', 'PUT']
         if not request.user or not request.user.is_authenticated():
             return request.method == 'POST'
-        if re.match(user_regex, request.path) or re.match(profile_regex,request.path):
+        if re.match(single_user_regex, request.path):
             return request.user.is_staff
         return False
 
