@@ -47,13 +47,10 @@ class CreateUserSerializer(serializers.ModelSerializer):
             return 'admin'
 
     def create(self, validated_data):
-        print(validated_data)
         validated_data['password'] = make_password(validated_data['password'])
         profile_data = validated_data.pop('profile')
         user = super(CreateUserSerializer,self).create(validated_data)
         self.update_or_create_profile(user,profile_data)
-        print(profile_data)
-
         return user
 
     def update_or_create_profile(self, user, profile_data):
@@ -124,13 +121,10 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
-        print(validated_data)
         validated_data['password'] = make_password(validated_data['password'])
         profile_data = validated_data.pop('profile')
         user = super(UserDetailSerializer,self).create(validated_data)
         self.update_or_create_profile(user,profile_data)
-        print(profile_data)
-
         return user
 
     def update_or_create_profile(self, user, profile_data):

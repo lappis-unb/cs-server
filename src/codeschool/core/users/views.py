@@ -88,7 +88,7 @@ def edit_profile(request):
 
 @login_required
 def change_password(request, pk):
-    print("aaaa",request.user)
+    raise NotImplementedError
 
 
 @login_required
