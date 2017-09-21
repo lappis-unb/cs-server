@@ -201,7 +201,7 @@ class Profile(models.TimeStampedModel):
         _('Phone'),
         max_length=20,
         blank=True,
-        null=True,
+        default="",
     )
     gender = models.SmallIntegerField(
         _('gender'),
@@ -217,7 +217,7 @@ class Profile(models.TimeStampedModel):
     website = models.URLField(
         _('Website'),
         blank=True,
-        null=True,
+        default="",
         help_text=_(
             'A website that is shown publicly in your profile.'
         )
