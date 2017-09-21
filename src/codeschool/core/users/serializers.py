@@ -3,6 +3,14 @@ from rest_framework.decorators import detail_route, list_route
 from django.contrib.auth.hashers import make_password
 from . import models
 
+from codeschool.lms.classrooms.models import Classroom
+
+# TODO: Throw away later. Make serializer file for classroom.
+class ClassroomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Classroom
+        fields = '__all__'
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     """

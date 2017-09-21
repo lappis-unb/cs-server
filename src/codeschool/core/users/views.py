@@ -14,6 +14,7 @@ from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
 from .permissions import UserPermissions
+from django.shortcuts import get_object_or_404
 
 authentication_backend = get_config('AUTHENTICATION_BACKENDS')[-1]
 
@@ -48,6 +49,21 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
+    @detail_route(methods=['get'])
+    def classrooms(self, request, pk=None):
+        user = get_object_or_404(models.User, pk=pk)
+
+        if user.role == models.User.ROLE_STAFF:
+            classrooms = user.classrooms_as_staff.all()
+        elif user.role == models.User.ROLE_TEACHER:
+            classrooms = user.classrooms_as_teacher.all()
+        else:
+            classrooms = user.classrooms_as_student.all()
+
+        classrooms = user.classrooms_as_student.all()
+        serializer = serializers.ClassroomSerializer(classrooms, many=True)
+
+        return Response(serializer.data)
 
 
 #
