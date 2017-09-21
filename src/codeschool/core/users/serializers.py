@@ -22,10 +22,11 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
     role = serializers.SerializerMethodField()
     profile = ProfileSerializer()
+    password_confirmation = serializers.CharField(write_only=True)
 
     class Meta:
         model = models.User
-        fields = ('username', 'alias', 'role','email', 'name', 'school_id','password', 'profile')
+        fields = ('username', 'alias', 'role','email', 'name', 'school_id','password','password_confirmation', 'profile')
         write_only = {'write_only': True}
         read_only = {'read_only':True}
 
@@ -47,7 +48,12 @@ class CreateUserSerializer(serializers.ModelSerializer):
             return 'admin'
 
     def create(self, validated_data):
-        validated_data['password'] = make_password(validated_data['password'])
+        validated_data['password'] = validated_data['password']
+        password_confirmation = validated_data.pop('password_confirmation', None)
+        if(password_confirmation == validated_data['password']):
+            validated_data['password'] = make_password(validated_data['password'])
+        else:
+            raise serializers.ValidationError("I guess you didn't type the password confirmation just like the password")
         profile_data = validated_data.pop('profile')
         user = super(CreateUserSerializer,self).create(validated_data)
         self.update_or_create_profile(user,profile_data)
@@ -58,28 +64,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
         # change the logic here if that's not right for your app
         models.Profile.objects.update_or_create(user=user, defaults=profile_data)
 
-    def update(self, instance, validated_data):
 
-        profile_data = validated_data.pop('profile')
-        profile = instance.profile
-
-        instance.password = make_password(validated_data.get('password'))
-        instance.alias = validated_data.get('alias')
-        instance.email = validated_data.get('email')
-        instance.name = validated_data.get('name')
-        instance.school_id = validated_data.get('school_id')
-
-        instance.profile.gender = profile_data.get('gender')
-        instance.profile.phone = profile_data.get('phone')
-        instance.profile.date_of_birth = profile_data.get('date_of_birth')
-        instance.profile.about_me = profile_data.get('about_me')
-        instance.profile.website = profile_data.get('website')
-
-
-        instance.save()
-        profile.save()
-
-        return instance
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
 
@@ -107,6 +92,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
         extra_kwargs = {
                 'profile':write_only,
+                'school_id':read_only,
         }
 
     def get_role(self, obj):
@@ -141,7 +127,6 @@ class UserDetailSerializer(serializers.ModelSerializer):
         instance.alias = validated_data.get('alias')
         instance.email = validated_data.get('email')
         instance.name = validated_data.get('name')
-        instance.school_id = validated_data.get('school_id')
 
         instance.profile.gender = profile_data.get('gender')
         instance.profile.phone = profile_data.get('phone')
