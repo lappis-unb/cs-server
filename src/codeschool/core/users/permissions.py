@@ -13,6 +13,17 @@ class UserPermissions(BasePermission):
         single_user_regex = r"/api/detail/$"
         user_regex = r"/api/users"
         profile_regex =  r"/api/detail/[0-9]+/"
+        prof_regex = r"/api/prof"
+        p_regex = r"/api/prof/[0-9]+/"
+        change_password_regex = r"/api/users/[0-9]+/change-password"
+        if request.user.is_authenticated() and not request.user.is_staff and re.match(prof_regex,request.path):
+            all_info = view.queryset
+            owner_user_id = request.user.id
+            owner_user_info = Profile.objects.filter(user_id=owner_user_id)
+            view.queryset = owner_user_info
+            return request.method in ['GET', 'HEAD', 'OPTIONS', 'PUT']
+        if re.match(change_password_regex,request.path):
+            return request.user.is_staff
         if request.user.is_authenticated() and not request.user.is_staff and re.match(profile_regex,request.path):
             all_info = view.queryset
             owner_user_id = request.user.id
@@ -34,4 +45,4 @@ class UserPermissions(BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.user.is_staff:
             return True
-        return request.user == obj
+        return request.user.id == obj.__dict__['id']
