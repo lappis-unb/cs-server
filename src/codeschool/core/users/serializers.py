@@ -1,10 +1,39 @@
 from rest_framework import serializers
 from rest_framework.decorators import detail_route, list_route
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password,check_password
 from . import models
 
 
+
+class ChangePasswordSerializer(serializers.ModelSerializer):
+
+    url = serializers.HyperlinkedIdentityField(view_name="change-password-detail")
+    password_confirmation = serializers.CharField(write_only=True)
+    old_password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = models.User
+        fields = ('url','old_password','password','password_confirmation')
+
+        write_only = {'write_only':True}
+        extra_kwargs = {'password':write_only,
+                        'password_confirmation':write_only,
+                    }
+
+    def update(self, instance, validated_data):
+
+        old_password_from_db = models.User.objects.values().get(id=instance.__dict__['id'])['password']
+        old_password_from_input = validated_data.pop('old_password')
+        new_password = validated_data.pop('password')
+        if check_password(old_password_from_input,old_password_from_db) and check_password(new_password,make_password(validated_data['password_confirmation'])):
+            instance.password = make_password(new_password)
+            instance.save()
+        else:
+            raise serializers.ValidationError("I guess you didn't type the old password correctly")
+        return instance
+
 class ProfileSerializer(serializers.ModelSerializer):
+
 
 
     class Meta:
@@ -74,7 +103,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 
 
-class UserDetailSerializer(serializers.ModelSerializer):
+class UserDetailSerializer(serializers.HyperlinkedModelSerializer):
     """
     Serialize User objects.
     """

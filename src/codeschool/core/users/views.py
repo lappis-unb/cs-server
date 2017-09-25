@@ -21,6 +21,15 @@ authentication_backend = get_config('AUTHENTICATION_BACKENDS')[-1]
 # REST endpoints
 #
 
+class ChangePasswordViewSet(viewsets.ModelViewSet):
+    permission_classes = (UserPermissions,)
+    queryset = models.User.objects.all()
+    serializer_class = serializers.ChangePasswordSerializer
+class ProfileViewSet(viewsets.ModelViewSet):
+    permission_classes = (UserPermissions,)
+    queryset = models.Profile.objects.all()
+    serializer_class = serializers.ProfileSerializer
+
 class UserDetailViewSet(viewsets.ModelViewSet):
     permission_classes = (UserPermissions,)
     queryset = models.User.objects.all()
@@ -31,6 +40,7 @@ class UserDetailViewSet(viewsets.ModelViewSet):
         if self.request.method == 'POST':
             serializer_class = serializers.CreateUserSerializer
         return serializer_class
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -52,8 +62,18 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
-
-
+    @detail_route(methods=['put'],url_path='change-password')
+    def set_profile(self, request, pk=None):
+        print("Llll")
+        profile = self.get_object()
+        serializer = serializers.ProfileSerializer(data=request.data)
+        if serializer.is_valid():
+            profile.set_profile(serializer.data['phone'])
+            profile.save()
+            return Response({'status': 'gender set'})
+        else:
+            return Response(serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST)
 #
 # Auth views
 #
